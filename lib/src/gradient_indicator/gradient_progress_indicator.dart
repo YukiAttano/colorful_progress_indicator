@@ -2,17 +2,20 @@ import "dart:math" as math;
 
 import "package:flutter/material.dart";
 
-const _maxRadians = math.pi * 2;
+const maxRadians = math.pi * 2;
 const _topLeftCorner = (180 + 45) * math.pi / 180;
 
 class GradientProgressIndicator extends StatefulWidget {
   final Widget? child;
   final Gradient bgGradient;
+  /// [animationValue] will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) fgGradient;
   final double? progress;
   final BoxShape shape;
   final EdgeInsets thickness;
+  /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? borderRadius;
+  /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? childBorderRadius;
   final Duration duration;
 
@@ -78,12 +81,12 @@ class GradientProgressIndicator extends StatefulWidget {
 
     if (animationValue == 0) {
       // endAngle must be greater than startAngle (which defaults to 0)
-      endAngle = _maxRadians;
+      endAngle = maxRadians;
       firstColor = bgColor;
     }
 
     return SweepGradient(
-      tileMode: animationValue == _maxRadians ? TileMode.repeated : TileMode.clamp,
+      tileMode: animationValue == maxRadians ? TileMode.repeated : TileMode.clamp,
       endAngle: endAngle,
       transform: const GradientRotation(_topLeftCorner),
       stops: _progressFgStops,
@@ -99,7 +102,7 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator> w
   // TODO(Alex): allow changing duration
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    upperBound: _maxRadians,
+    upperBound: maxRadians,
     duration: widget.duration,
   );
 
@@ -115,7 +118,7 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator> w
       setState(_updateGradient);
     });
 
-    _updateProgress(true);
+    _updateProgress(false);
   }
 
   @override
@@ -135,7 +138,7 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator> w
     if (progress == null) {
       _controller.repeat();
     } else {
-      double animationValue = _maxRadians * progress;
+      double animationValue = maxRadians * progress;
 
       if (animate) {
         _controller.animateTo(animationValue);
