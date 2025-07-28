@@ -6,12 +6,16 @@ import "package:flutter/material.dart";
 import "../consts.dart";
 
 
-const _topLeftCorner = (180 + 45) * math.pi / 180;
+const double _topLeftCorner = (180 + 45) * math.pi / 180;
 
 /// A progress indicator that shows the same color on the same position while animating.
 ///
 /// Works by drawing a Gradient in the background and partially revealing it with applying a foreground gradient on it.
 class FixedGradientProgressIndicator extends GradientProgressIndicator {
+
+  static const List<double> _fgStops = [0.25, 0.5];
+  static const List<double> _progressFgStops = [0.9999999, 1];
+
   final Widget? child;
   final Gradient bgGradient;
   /// [animationValue] will be between 0 and [maxRadians]
@@ -67,8 +71,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
          duration: duration,
        );
 
-  static const List<double> _fgStops = [0.25, 0.5];
-  static const List<double> _progressFgStops = [0.9999999, 1];
+
 
   static Gradient defaultFgGradient(Color bgColor, double animationValue) {
     return LinearGradient(

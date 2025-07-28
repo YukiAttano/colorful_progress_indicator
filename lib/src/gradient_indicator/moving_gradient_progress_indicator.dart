@@ -1,7 +1,11 @@
+import "dart:math" as math;
+
 import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
 import "../consts.dart";
+
+const double _topCenter = math.pi / 2;
 
 /// A progress indicator that shows the same color on the same position while animating.
 ///
@@ -20,6 +24,8 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? childBorderRadius;
 
+  final MaterialType materialType;
+
   final Duration duration;
 
   const MovingGradientProgressIndicator.custom({
@@ -31,50 +37,49 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
+
+    MaterialType? materialType,
     Duration? duration,
   }) : shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
+       materialType = materialType ?? MaterialType.canvas,
        duration = duration ?? const Duration(seconds: 2);
 
-  factory MovingGradientProgressIndicator({
+  MovingGradientProgressIndicator({
     Key? key,
     required Widget child,
     required List<Color> colors,
     double? progress,
+    BoxShape? shape,
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
-    BoxShape? shape,
-    Duration? duration,
-  }) = MovingGradientProgressIndicator._;
 
-  MovingGradientProgressIndicator._({
-    Key? key,
-    required Widget child,
-    required List<Color> colors,
-    double? progress,
-    EdgeInsets? thickness,
-    BorderRadius? borderRadius,
-    BorderRadius? childBorderRadius,
-    BoxShape? shape,
+    /// if true, a transparent child (e.g. SizedBox) will show the whole gradient in its background
+    bool? filled,
     Duration? duration,
   }) : this.custom(
          key: key,
          child: child,
          gradient: (animationValue) => defaultGradient(colors, animationValue),
          progress: progress,
+         shape: shape,
          thickness: thickness,
          borderRadius: borderRadius,
          childBorderRadius: childBorderRadius ?? borderRadius,
-         shape: shape,
+         materialType: fillChild(filled) ? MaterialType.transparency : null,
          duration: duration,
        );
 
   static Gradient defaultGradient(List<Color> colors, double animationValue) {
-    return SweepGradient(transform: GradientRotation(animationValue), colors: colors);
+    return SweepGradient(transform: GradientRotation(animationValue - _topCenter), colors: colors);
   }
+
+  @protected
+  /// defines whether [filled] = null will be handled as false or true
+  static bool fillChild(bool? filled) => filled ?? false;
 
   @override
   State<MovingGradientProgressIndicator> createState() => _MovingGradientProgressIndicatorState();
@@ -144,7 +149,13 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
       decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: _gradient),
       child: Padding(
         padding: widget.thickness,
-        child: Material(borderRadius: widget.childBorderRadius, child: widget.child),
+        child: Material(
+          //clipBehavior: Clip.hardEdge,
+          //widget.materialType == MaterialType.circle ||widget.materialType == MaterialType.button ?  Colors.transparent : null,
+          type: widget.materialType,
+          borderRadius: widget.childBorderRadius,
+          child: widget.child,
+        ),
       ),
     );
   }
