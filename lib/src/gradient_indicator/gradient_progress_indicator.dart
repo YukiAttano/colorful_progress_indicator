@@ -59,13 +59,16 @@ class GradientProgressIndicator extends StatefulWidget {
          duration: duration,
        );
 
+  static const List<double> _fgStops = [0.25, 0.5];
+  static const List<double> _progressFgStops = [0.9999999, 1];
+
   static Gradient defaultFgGradient(Color bgColor, double animationValue) {
     return LinearGradient(
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
-      stops: const [0.25, 0.5],
+      stops: _fgStops,
       transform: GradientRotation(animationValue),
-      colors: [Colors.transparent, bgColor.withAlpha(255)],
+      colors: [Colors.transparent, bgColor],
     );
   }
 
@@ -73,9 +76,8 @@ class GradientProgressIndicator extends StatefulWidget {
     Color firstColor = Colors.transparent;
     double endAngle = animationValue;
 
-    if (animationValue == _maxRadians) {
-      endAngle = _maxRadians;
-    } else if (animationValue == 0) {
+    if (animationValue == 0) {
+      // endAngle must be greater than startAngle (which defaults to 0)
       endAngle = _maxRadians;
       firstColor = bgColor;
     }
@@ -84,7 +86,7 @@ class GradientProgressIndicator extends StatefulWidget {
       tileMode: animationValue == _maxRadians ? TileMode.repeated : TileMode.clamp,
       endAngle: endAngle,
       transform: const GradientRotation(_topLeftCorner),
-      stops: const [0.99999, 1],
+      stops: _progressFgStops,
       colors: [firstColor, bgColor],
     );
   }
@@ -94,6 +96,7 @@ class GradientProgressIndicator extends StatefulWidget {
 }
 
 class _GradientProgressIndicatorState extends State<GradientProgressIndicator> with SingleTickerProviderStateMixin {
+  // TODO(Alex): allow changing duration
   late final AnimationController _controller = AnimationController(
     vsync: this,
     upperBound: _maxRadians,
@@ -121,6 +124,8 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator> w
 
     if (oldWidget.progress != widget.progress) {
       _updateProgress(oldWidget.progress != null && widget.progress != null);
+    } else if (oldWidget.fgGradient != widget.fgGradient) {
+      _updateGradient();
     }
   }
 
@@ -157,7 +162,7 @@ class _GradientProgressIndicatorState extends State<GradientProgressIndicator> w
           padding: widget.thickness,
           child: Material(
             // add this line to see how this effect works
-            type: MaterialType.transparency,
+            //type: MaterialType.transparency,
             borderRadius: widget.childBorderRadius,
             child: widget.child,
           ),
