@@ -13,13 +13,13 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
     super.clipBehavior,
     super.borderRadius,
     super.childBorderRadius,
+    super.filled,
     super.duration,
     AlignmentGeometry? begin,
     AlignmentGeometry? end,
   }) : super.custom(
          gradient: (animationValue) => defaultGradient(colors, begin, end, animationValue),
          shape: BoxShape.rectangle,
-         filled: true,
        );
 
   static Gradient defaultGradient(
