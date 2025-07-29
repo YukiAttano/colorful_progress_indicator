@@ -2,7 +2,7 @@ import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
-import "../consts.dart";
+import "../../consts.dart";
 
 /// A progress indicator that animates the given gradient around another widget
 class MovingGradientProgressIndicator extends GradientProgressIndicator {

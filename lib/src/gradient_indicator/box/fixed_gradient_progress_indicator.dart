@@ -4,7 +4,7 @@ import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
-import "../consts.dart";
+import "../../consts.dart";
 
 const double _topLeftCorner = (180 + 45) * math.pi / 180;
 
