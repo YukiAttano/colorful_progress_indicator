@@ -1,14 +1,15 @@
 import "package:flutter/material.dart";
 
 import "../../../colorful_progress_indicator.dart";
+import "../../gradient_child.dart";
 
 class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
   static const List<double> _fgStops = [0.8, 1];
   static final Tween<double> _slideTween = Tween(begin: -0.5, end: 1.5);
 
-  const LinearFixedGradientProgressIndicator.custom({
+  LinearFixedGradientProgressIndicator.custom({
     super.key,
-    super.child,
+    Widget? child,
     required super.bgGradient,
     required super.fgGradient,
     super.progress,
@@ -18,7 +19,10 @@ class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicato
     super.childBorderRadius,
     super.filled,
     super.duration,
-  }) : super.custom(shape: BoxShape.rectangle);
+  }) : super.custom(
+         child: LinearGradientChild(child: child),
+         shape: BoxShape.rectangle,
+       );
 
   LinearFixedGradientProgressIndicator({
     Key? key,

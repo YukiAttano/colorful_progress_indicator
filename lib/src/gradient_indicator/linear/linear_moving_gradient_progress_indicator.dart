@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 
 import "../../../colorful_progress_indicator.dart";
+import "../../gradient_child.dart";
 
 class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
-  const LinearMovingGradientProgressIndicator.custom({
+  LinearMovingGradientProgressIndicator.custom({
     super.key,
-    super.child,
+    Widget? child,
     required super.gradient,
     super.progress,
     super.thickness,
@@ -14,7 +15,9 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
     super.childBorderRadius,
     super.filled,
     super.duration,
-  }) : super.custom(shape: BoxShape.rectangle);
+  }) : super.custom(
+      child: LinearGradientChild(child: child),
+      shape: BoxShape.rectangle);
 
   LinearMovingGradientProgressIndicator({
     Key? key,

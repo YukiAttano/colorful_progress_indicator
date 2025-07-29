@@ -46,3 +46,21 @@ class CircularGradientChild extends StatelessWidget {
     return ConstrainedBox(constraints: indicatorTheme.constraints ?? circularDefaultConstraints, child: child);
   }
 }
+
+/// applies default material box constraints on a linear gradient progress indicator to ensure a minimum size
+@protected
+class LinearGradientChild extends StatelessWidget {
+  final Widget? child;
+
+  const LinearGradientChild({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    ProgressIndicatorThemeData indicatorTheme = ProgressIndicatorTheme.of(context);
+
+    return ConstrainedBox(constraints: BoxConstraints(
+      minWidth: double.infinity,
+      maxHeight: indicatorTheme.linearMinHeight ?? linearDefaultMinHeight,
+    ), child: child);
+  }
+}

@@ -4,9 +4,9 @@ import "../../../colorful_progress_indicator.dart";
 import "../../gradient_child.dart";
 
 class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
-  const CircularMovingGradientProgressIndicator.custom({
+  CircularMovingGradientProgressIndicator.custom({
     super.key,
-    super.child,
+    Widget? child,
     required super.gradient,
     super.progress,
     super.thickness,
@@ -14,6 +14,7 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
     super.filled,
     super.duration,
   }) : super.custom(
+        child: CircularGradientChild(child: child),
          shape: BoxShape.circle,
          borderRadius: null,
          childBorderRadius: null,
@@ -31,7 +32,7 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
     Duration? duration,
   }) : this.custom(
          key: key,
-         child: CircularGradientChild(child: child),
+         child: child,
          gradient: (animationValue) => MovingGradientProgressIndicator.defaultGradient(colors, animationValue),
          progress: progress,
          thickness: thickness,
