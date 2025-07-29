@@ -1,5 +1,6 @@
 import "dart:math" as math;
 
+import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
@@ -154,10 +155,10 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
       decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: _gradient),
       child: Padding(
         padding: widget.thickness,
-        child: _Child(
+        child: GradientChild(
           clipBehavior: widget.clipBehavior,
           filled: widget.filled,
-          color: null,
+
           type: widget.materialType,
           borderRadius: widget.childBorderRadius,
           child: widget.child,
@@ -170,32 +171,5 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-}
-
-class _Child extends StatelessWidget {
-  final Widget? child;
-  final MaterialType type;
-  final BorderRadius? borderRadius;
-  final Clip clipBehavior;
-  final bool filled;
-  final Color? color;
-
-  const _Child({
-    super.key,
-    required this.child,
-    required this.type,
-    required this.borderRadius,
-    required Clip? clipBehavior,
-    required this.filled,
-    required this.color,
-  }) : clipBehavior = clipBehavior ?? Clip.none;
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-    Color color = filled ? Colors.transparent : theme.canvasColor;
-
-    return Material(clipBehavior: clipBehavior, color: color, type: type, borderRadius: borderRadius, child: child);
   }
 }

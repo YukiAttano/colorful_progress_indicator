@@ -1,5 +1,6 @@
 import "dart:math" as math;
 
+import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
@@ -25,7 +26,13 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? borderRadius;
   /// unused if [shape] is [BoxShape.circle]
+  /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? childBorderRadius;
+
+  final Clip? clipBehavior;
+  final bool filled;
+  final MaterialType materialType;
+
   final Duration duration;
 
   const FixedGradientProgressIndicator.custom({
@@ -38,12 +45,17 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
+    this.clipBehavior,
+    bool? filled,
+    MaterialType? materialType,
     Duration? duration,
   }) : shape = shape ?? BoxShape.rectangle,
-       thickness = thickness ?? const EdgeInsets.all(2),
-       borderRadius = shape == BoxShape.circle ? null : borderRadius,
-       childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
-       duration = duration ?? const Duration(seconds: 2);
+        thickness = thickness ?? const EdgeInsets.all(4),
+        borderRadius = shape == BoxShape.circle ? null : borderRadius,
+        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
+        filled = filled ?? false,
+        materialType = materialType ?? MaterialType.canvas,
+        duration = duration ?? const Duration(seconds: 2);
 
   FixedGradientProgressIndicator({
     Key? key,
@@ -155,9 +167,10 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
         decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: _gradient),
         child: Padding(
           padding: widget.thickness,
-          child: Material(
-            // add this line to see how this effect works
-            //type: MaterialType.transparency,
+          child: GradientChild(
+            clipBehavior: widget.clipBehavior,
+            filled: widget.filled,
+            type: widget.materialType,
             borderRadius: widget.childBorderRadius,
             child: widget.child,
           ),
