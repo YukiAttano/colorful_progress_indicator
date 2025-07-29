@@ -1,7 +1,11 @@
+/// @docImport "gradient_indicator/gradient_progress_indicator.dart";
+library;
+
 import "package:flutter/material.dart";
 
 import "../colorful_progress_indicator.dart";
 
+/// a wrapper for any child a [GradientProgressIndicator] to scope context dependencies
 @protected
 class GradientChild extends StatelessWidget {
   final Widget? child;
