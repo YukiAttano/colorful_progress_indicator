@@ -24,6 +24,8 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? childBorderRadius;
 
+  final Clip? clipBehavior;
+  final bool filled;
   final MaterialType materialType;
 
   final Duration duration;
@@ -37,13 +39,15 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
-
+    this.clipBehavior,
+    bool? filled,
     MaterialType? materialType,
     Duration? duration,
   }) : shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
+       filled = filled ?? false,
        materialType = materialType ?? MaterialType.canvas,
        duration = duration ?? const Duration(seconds: 2);
 
@@ -56,7 +60,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
-
+    Clip? clipBehavior,
     /// if true, a transparent child (e.g. SizedBox) will show the whole gradient in its background
     bool? filled,
     Duration? duration,
@@ -69,7 +73,8 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
          thickness: thickness,
          borderRadius: borderRadius,
          childBorderRadius: childBorderRadius ?? borderRadius,
-         materialType: fillChild(filled) ? MaterialType.transparency : null,
+         clipBehavior: clipBehavior,
+         filled: filled,
          duration: duration,
        );
 
@@ -149,9 +154,10 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
       decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: _gradient),
       child: Padding(
         padding: widget.thickness,
-        child: Material(
-          //clipBehavior: Clip.hardEdge,
-          //widget.materialType == MaterialType.circle ||widget.materialType == MaterialType.button ?  Colors.transparent : null,
+        child: _Child(
+          clipBehavior: widget.clipBehavior,
+          filled: widget.filled,
+          color: null,
           type: widget.materialType,
           borderRadius: widget.childBorderRadius,
           child: widget.child,
@@ -164,5 +170,32 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+}
+
+class _Child extends StatelessWidget {
+  final Widget? child;
+  final MaterialType type;
+  final BorderRadius? borderRadius;
+  final Clip clipBehavior;
+  final bool filled;
+  final Color? color;
+
+  const _Child({
+    super.key,
+    required this.child,
+    required this.type,
+    required this.borderRadius,
+    required Clip? clipBehavior,
+    required this.filled,
+    required this.color,
+  }) : clipBehavior = clipBehavior ?? Clip.none;
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    Color color = filled ? Colors.transparent : theme.canvasColor;
+
+    return Material(clipBehavior: clipBehavior, color: color, type: type, borderRadius: borderRadius, child: child);
   }
 }
