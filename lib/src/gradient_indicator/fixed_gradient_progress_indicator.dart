@@ -6,26 +6,27 @@ import "package:flutter/material.dart";
 
 import "../consts.dart";
 
-
 const double _topLeftCorner = (180 + 45) * math.pi / 180;
 
 /// A progress indicator that shows the same color on the same position while animating.
 ///
 /// Works by drawing a Gradient in the background and partially revealing it with applying a foreground gradient on it.
 class FixedGradientProgressIndicator extends GradientProgressIndicator {
-
-  static const List<double> _fgStops = [0.25, 0.5];
+  static const List<double> _fgEasedStops = [0.25, 0.5];
+  static const List<double> _fgHardStops = [0.4, 0.5];
   static const List<double> _progressFgStops = [0.9999999, 1];
 
   final Widget? child;
   final Gradient bgGradient;
+
   /// [animationValue] will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) fgGradient;
   final BoxShape shape;
   final EdgeInsets thickness;
+
   /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? borderRadius;
-  /// unused if [shape] is [BoxShape.circle]
+
   /// unused if [shape] is [BoxShape.circle]
   final BorderRadius? childBorderRadius;
 
@@ -50,22 +51,25 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     MaterialType? materialType,
     Duration? duration,
   }) : shape = shape ?? BoxShape.rectangle,
-        thickness = thickness ?? const EdgeInsets.all(4),
-        borderRadius = shape == BoxShape.circle ? null : borderRadius,
-        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
-        filled = filled ?? false,
-        materialType = materialType ?? MaterialType.canvas,
-        duration = duration ?? const Duration(seconds: 2);
+       thickness = thickness ?? const EdgeInsets.all(4),
+       borderRadius = shape == BoxShape.circle ? null : borderRadius,
+       childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
+       filled = filled ?? false,
+       materialType = materialType ?? MaterialType.canvas,
+       duration = duration ?? const Duration(seconds: 2);
 
   FixedGradientProgressIndicator({
     Key? key,
     required Widget child,
     required List<Color> colors,
+    /// The background color of this widget, for example Theme.of(context).canvasColor
     required Color background,
     double? progress,
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
+    Clip? clipBehavior,
+    bool? filled,
     BoxShape? shape,
     Duration? duration,
   }) : this.custom(
@@ -73,23 +77,27 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
          child: child,
          bgGradient: LinearGradient(colors: colors),
          fgGradient: progress == null
-             ? (animationValue) => defaultFgGradient(background, animationValue)
+             ? (animationValue) => defaultFgGradient(background, filled, animationValue)
              : (animationValue) => defaultProgressFgGradient(background, animationValue),
          progress: progress,
          thickness: thickness,
          borderRadius: borderRadius,
          childBorderRadius: childBorderRadius ?? borderRadius,
+         clipBehavior: clipBehavior,
+         filled: filled,
          shape: shape,
          duration: duration,
        );
 
+  static Gradient defaultFgGradient(Color bgColor, bool? filled, double animationValue) {
+    return defaultFgGradientWithStops(bgColor, fillChild(filled) ? _fgHardStops : _fgEasedStops, animationValue);
+  }
 
-
-  static Gradient defaultFgGradient(Color bgColor, double animationValue) {
+  static Gradient defaultFgGradientWithStops(Color bgColor, List<double> stops, double animationValue) {
     return LinearGradient(
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
-      stops: _fgStops,
+      stops: stops,
       transform: GradientRotation(animationValue),
       colors: [Colors.transparent, bgColor],
     );
@@ -114,6 +122,8 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     );
   }
 
+  static bool fillChild(bool? filled) => filled ?? false;
+
   @override
   State<FixedGradientProgressIndicator> createState() => _FixedGradientProgressIndicatorState();
 }
@@ -125,6 +135,7 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
     upperBound: maxRadians,
     duration: widget.duration,
   );
+
   @override
   AnimationController get controller => _controller;
 
@@ -151,7 +162,6 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
       _updateGradient();
     }
   }
-
 
   void _updateGradient() {
     _gradient = widget.fgGradient(_controller.value);
@@ -184,5 +194,4 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
     _controller.dispose();
     super.dispose();
   }
-
 }

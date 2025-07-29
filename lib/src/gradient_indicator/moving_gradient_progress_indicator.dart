@@ -1,12 +1,8 @@
-import "dart:math" as math;
-
 import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
 import "../consts.dart";
-
-const double _topCenter = math.pi / 2;
 
 /// A progress indicator that shows the same color on the same position while animating.
 ///
@@ -62,6 +58,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
     Clip? clipBehavior,
+
     /// if true, a transparent child (e.g. SizedBox) will show the whole gradient in its background
     bool? filled,
     Duration? duration,
@@ -80,7 +77,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
        );
 
   static Gradient defaultGradient(List<Color> colors, double animationValue) {
-    return SweepGradient(transform: GradientRotation(animationValue - _topCenter), colors: colors);
+    return SweepGradient(transform: GradientRotation(animationValue + topCenter), colors: colors);
   }
 
   @protected
