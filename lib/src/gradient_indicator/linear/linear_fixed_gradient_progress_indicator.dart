@@ -44,8 +44,8 @@ class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicato
          progress: progress,
          thickness: thickness,
          clipBehavior: clipBehavior,
-    borderRadius     : borderRadius,
-    childBorderRadius: childBorderRadius,
+         borderRadius: borderRadius,
+         childBorderRadius: childBorderRadius,
          filled: filled,
          duration: duration,
        );

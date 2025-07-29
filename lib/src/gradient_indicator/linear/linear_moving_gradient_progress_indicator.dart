@@ -3,10 +3,10 @@ import "package:flutter/material.dart";
 import "../../../colorful_progress_indicator.dart";
 
 class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
-  LinearMovingGradientProgressIndicator({
+  const LinearMovingGradientProgressIndicator.custom({
     super.key,
     super.child,
-    required List<Color> colors,
+    required super.gradient,
     super.progress,
     super.thickness,
     super.clipBehavior,
@@ -14,11 +14,32 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
     super.childBorderRadius,
     super.filled,
     super.duration,
+  }) : super.custom(shape: BoxShape.rectangle);
+
+  LinearMovingGradientProgressIndicator({
+    Key? key,
+    Widget? child,
+    required List<Color> colors,
+    double? progress,
+    EdgeInsets? thickness,
+    Clip? clipBehavior,
+    BorderRadius? borderRadius,
+    BorderRadius? childBorderRadius,
+    bool? filled,
+    Duration? duration,
     AlignmentGeometry? begin,
     AlignmentGeometry? end,
-  }) : super.custom(
+  }) : this.custom(
+         key: key,
+         child: child,
          gradient: (animationValue) => defaultGradient(colors, begin, end, animationValue),
-         shape: BoxShape.rectangle,
+         progress: progress,
+         thickness: thickness,
+         clipBehavior: clipBehavior,
+         borderRadius: borderRadius,
+         childBorderRadius: childBorderRadius,
+         filled: filled,
+         duration: duration,
        );
 
   static Gradient defaultGradient(

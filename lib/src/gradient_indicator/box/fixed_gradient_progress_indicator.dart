@@ -1,12 +1,8 @@
-import "dart:math" as math;
-
 import "package:flutter/material.dart";
 
 import "../../consts.dart";
 import "../../gradient_child.dart";
 import "../gradient_progress_indicator.dart";
-
-const double _topLeftCorner = (180 + 45) * math.pi / 180;
 
 /// A progress indicator that shows the same color on the same position while animating.
 ///
@@ -62,6 +58,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     Key? key,
     required Widget child,
     required List<Color> colors,
+
     /// The background color of this widget, for example Theme.of(context).canvasColor
     required Color background,
     double? progress,
@@ -116,7 +113,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     return SweepGradient(
       tileMode: animationValue == maxRadians ? TileMode.repeated : TileMode.clamp,
       endAngle: endAngle,
-      transform: const GradientRotation(_topLeftCorner),
+      transform: const GradientRotation(topLeftCorner),
       stops: _progressFgStops,
       colors: [firstColor, bgColor],
     );
