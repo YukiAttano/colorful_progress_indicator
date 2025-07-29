@@ -1,5 +1,6 @@
-
 import "package:flutter/material.dart";
+
+import "../colorful_progress_indicator.dart";
 
 @protected
 class GradientChild extends StatelessWidget {
@@ -8,7 +9,6 @@ class GradientChild extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Clip clipBehavior;
   final bool filled;
-
 
   const GradientChild({
     super.key,
@@ -25,5 +25,20 @@ class GradientChild extends StatelessWidget {
     Color color = filled ? Colors.transparent : theme.canvasColor;
 
     return Material(clipBehavior: clipBehavior, color: color, type: type, borderRadius: borderRadius, child: child);
+  }
+}
+
+/// applies default material box constraints on a circular gradient progress indicator to ensure a minimum size
+@protected
+class CircularGradientChild extends StatelessWidget {
+  final Widget? child;
+
+  const CircularGradientChild({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    ProgressIndicatorThemeData indicatorTheme = ProgressIndicatorTheme.of(context);
+
+    return ConstrainedBox(constraints: indicatorTheme.constraints ?? circularDefaultConstraints, child: child);
   }
 }

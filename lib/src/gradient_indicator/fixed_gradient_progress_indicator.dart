@@ -13,7 +13,7 @@ const double _topLeftCorner = (180 + 45) * math.pi / 180;
 /// Works by drawing a Gradient in the background and partially revealing it with applying a foreground gradient on it.
 class FixedGradientProgressIndicator extends GradientProgressIndicator {
   static const List<double> _fgEasedStops = [0.25, 0.5];
-  static const List<double> _fgHardStops = [0.4, 0.5];
+  static const List<double> _fgHardStops = [0.5, 0.5];
   static const List<double> _progressFgStops = [0.9999999, 1];
 
   final Widget? child;

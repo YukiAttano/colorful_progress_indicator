@@ -4,9 +4,7 @@ import "package:flutter/material.dart";
 
 import "../consts.dart";
 
-/// A progress indicator that shows the same color on the same position while animating.
-///
-/// Works by drawing a Gradient in the background and partially revealing it with applying a foreground gradient on it.
+/// Base class for gradient progress indicator
 abstract class GradientProgressIndicator extends StatefulWidget {
   final double? progress;
 
