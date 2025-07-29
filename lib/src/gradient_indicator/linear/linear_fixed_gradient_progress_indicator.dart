@@ -1,7 +1,6 @@
-import "package:colorful_progress_indicator/colorful_progress_indicator.dart";
 import "package:flutter/material.dart";
 
-import "../../gradient_transform/sliding_gradient_transform.dart";
+import "../../../colorful_progress_indicator.dart";
 
 class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
   static const List<double> _fgStops = [0.8, 1];

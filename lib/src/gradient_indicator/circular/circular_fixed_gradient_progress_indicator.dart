@@ -1,6 +1,7 @@
-import "package:colorful_progress_indicator/colorful_progress_indicator.dart";
-import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:flutter/material.dart";
+
+import "../../../colorful_progress_indicator.dart";
+import "../../gradient_child.dart";
 
 class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
   static const List<double> _fgEasedStops = [0.45, 0.5];
@@ -39,7 +40,7 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
   }) : this.custom(
          key: key,
          child: child,
-         bgGradient: SweepGradient(transform: GradientRotation(topCenter), colors: colors),
+         bgGradient: SweepGradient(transform: const GradientRotation(topCenter), colors: colors),
          fgGradient: progress == null
              ? (animationValue) => defaultFgGradient(background, filled, animationValue)
              : (animationValue) => FixedGradientProgressIndicator.defaultProgressFgGradient(background, animationValue),

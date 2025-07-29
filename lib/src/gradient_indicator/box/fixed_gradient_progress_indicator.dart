@@ -1,10 +1,10 @@
 import "dart:math" as math;
 
-import "package:colorful_progress_indicator/src/gradient_child.dart";
-import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
 import "../../consts.dart";
+import "../../gradient_child.dart";
+import "../gradient_progress_indicator.dart";
 
 const double _topLeftCorner = (180 + 45) * math.pi / 180;
 
@@ -19,7 +19,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   final Widget? child;
   final Gradient bgGradient;
 
-  /// [animationValue] will be between 0 and [maxRadians]
+  /// animationValue will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) fgGradient;
   final BoxShape shape;
   final EdgeInsets thickness;

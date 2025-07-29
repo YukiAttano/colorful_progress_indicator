@@ -1,7 +1,6 @@
-import "package:colorful_progress_indicator/colorful_progress_indicator.dart";
-import "package:colorful_progress_indicator/src/gradient_child.dart";
-import "package:colorful_progress_indicator/src/gradient_transform/sliding_gradient_transform.dart";
 import "package:flutter/material.dart";
+
+import "../../../colorful_progress_indicator.dart";
 
 class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
   LinearMovingGradientProgressIndicator({

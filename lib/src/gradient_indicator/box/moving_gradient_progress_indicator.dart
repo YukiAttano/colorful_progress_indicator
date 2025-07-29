@@ -1,14 +1,14 @@
-import "package:colorful_progress_indicator/src/gradient_child.dart";
-import "package:colorful_progress_indicator/src/gradient_indicator/gradient_progress_indicator.dart";
 import "package:flutter/material.dart";
 
 import "../../consts.dart";
+import "../../gradient_child.dart";
+import "../gradient_progress_indicator.dart";
 
 /// A progress indicator that animates the given gradient around another widget
 class MovingGradientProgressIndicator extends GradientProgressIndicator {
   final Widget? child;
 
-  /// [animationValue] will be between 0 and [maxRadians]
+  /// animationValue will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) gradient;
   final BoxShape shape;
   final EdgeInsets thickness;

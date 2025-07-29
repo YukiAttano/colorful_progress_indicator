@@ -1,14 +1,12 @@
-
-import 'dart:ui';
+import "dart:ui";
 
 abstract class GradientColors {
-
   /// Razer Chroma colors
   ///
   /// extracted from the login websites css code
   ///
   /// their animations uses a duration of 1400ms
-  static final List<Color> razerChroma = [
+  static const List<Color> razerChroma = [
     Color.fromARGB(255, 0, 255, 255),
     Color.fromARGB(255, 0, 255, 0),
     Color.fromARGB(255, 255, 255, 0),

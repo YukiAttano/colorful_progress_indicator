@@ -1,6 +1,7 @@
-import "package:colorful_progress_indicator/colorful_progress_indicator.dart";
-import "package:colorful_progress_indicator/src/gradient_child.dart";
 import "package:flutter/material.dart";
+
+import "../../../colorful_progress_indicator.dart";
+import "../../gradient_child.dart";
 
 class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
   CircularMovingGradientProgressIndicator({
