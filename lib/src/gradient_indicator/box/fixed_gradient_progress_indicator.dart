@@ -30,8 +30,6 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   final bool filled;
   final MaterialType materialType;
 
-  final Duration duration;
-
   const FixedGradientProgressIndicator.custom({
     super.key,
     this.child,
@@ -45,14 +43,13 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     this.clipBehavior,
     bool? filled,
     MaterialType? materialType,
-    Duration? duration,
+    super.duration,
   }) : shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
        filled = filled ?? false,
-       materialType = materialType ?? MaterialType.canvas,
-       duration = duration ?? const Duration(seconds: 2);
+       materialType = materialType ?? MaterialType.canvas;
 
   FixedGradientProgressIndicator({
     Key? key,
@@ -126,16 +123,6 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
 }
 
 class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorState<FixedGradientProgressIndicator> {
-  // TODO(Alex): allow changing duration
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    upperBound: maxRadians,
-    duration: widget.duration,
-  );
-
-  @override
-  AnimationController get controller => _controller;
-
   late Gradient _gradient;
 
   @override
@@ -143,8 +130,13 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
     super.initState();
 
     _updateGradient();
+  }
 
-    _controller.addListener(() {
+  @override
+  void initController() {
+    super.initController();
+
+    controller.addListener(() {
       setState(_updateGradient);
     });
   }
@@ -161,7 +153,7 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
   }
 
   void _updateGradient() {
-    _gradient = widget.fgGradient(_controller.value);
+    _gradient = widget.fgGradient(controller.value);
   }
 
   @override
@@ -184,11 +176,5 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

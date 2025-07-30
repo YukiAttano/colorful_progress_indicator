@@ -23,8 +23,6 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   final bool filled;
   final MaterialType materialType;
 
-  final Duration duration;
-
   const MovingGradientProgressIndicator.custom({
     super.key,
     this.child,
@@ -37,14 +35,13 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     this.clipBehavior,
     bool? filled,
     MaterialType? materialType,
-    Duration? duration,
+    super.duration,
   }) : shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
        filled = filled ?? false,
-       materialType = materialType ?? MaterialType.canvas,
-       duration = duration ?? const Duration(seconds: 2);
+       materialType = materialType ?? MaterialType.canvas;
 
   MovingGradientProgressIndicator({
     Key? key,
@@ -87,16 +84,6 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
 }
 
 class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorState<MovingGradientProgressIndicator> {
-  // TODO(Alex): allow changing duration
-  late final AnimationController _controller = AnimationController(
-    vsync: this,
-    upperBound: maxRadians,
-    duration: widget.duration,
-  );
-
-  @override
-  AnimationController get controller => _controller;
-
   late Gradient _gradient;
 
   @override
@@ -104,12 +91,15 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
     super.initState();
 
     _updateGradient();
+  }
 
-    _controller.addListener(() {
+  @override
+  void initController() {
+    super.initController();
+
+    controller.addListener(() {
       setState(_updateGradient);
     });
-
-    _updateProgress(false);
   }
 
   @override
@@ -117,31 +107,14 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.progress != widget.progress) {
-      _updateProgress(oldWidget.progress != null && widget.progress != null);
+      updateProgress(animate: oldWidget.progress != null && widget.progress != null);
     } else if (oldWidget.gradient != widget.gradient) {
       _updateGradient();
     }
   }
 
-  void _updateProgress(bool animate) {
-    double? progress = widget.progress;
-
-    if (progress == null) {
-      _controller.repeat();
-    } else {
-      double animationValue = maxRadians * progress;
-
-      if (animate) {
-        _controller.animateTo(animationValue);
-      } else {
-        _controller.stop(canceled: false);
-        _controller.value = animationValue;
-      }
-    }
-  }
-
   void _updateGradient() {
-    _gradient = widget.gradient(_controller.value);
+    _gradient = widget.gradient(controller.value);
   }
 
   @override
@@ -160,11 +133,5 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
