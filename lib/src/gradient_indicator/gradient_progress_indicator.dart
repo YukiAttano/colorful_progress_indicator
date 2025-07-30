@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "../consts.dart";
 
-/// Base class for gradient progress indicator
+/// Base class for gradient progress indicators
 abstract class GradientProgressIndicator extends StatefulWidget {
   final double? progress;
   final Duration duration;
