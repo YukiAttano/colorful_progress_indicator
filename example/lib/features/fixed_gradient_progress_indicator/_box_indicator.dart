@@ -1,0 +1,38 @@
+part of 'fixed_gradient_progress_indicator_screen.dart';
+
+class _BoxIndicator extends StatelessWidget {
+  final List<Color> colors;
+  final Color bgColor;
+  final double? progress;
+  final EdgeInsets? thickness;
+
+  const _BoxIndicator({super.key, required this.colors, required this.bgColor, this.progress, this.thickness});
+
+  @override
+  Widget build(BuildContext context) {
+    var radius = BorderRadius.circular(14);
+
+    return FixedGradientProgressIndicator(
+      progress: progress,
+      thickness: thickness,
+      borderRadius: radius,
+      childBorderRadius: radius,
+      colors: colors,
+      background: bgColor,
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: radius),
+        margin: EdgeInsets.zero,
+        child: Padding(
+          padding: EdgeInsets.all(12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("This is the child of the loading\nindicator that gets surrounded by it"),
+              Text("Best results are achieved with square boxes"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

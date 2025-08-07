@@ -1,0 +1,2 @@
+/Users/alexandersandten/Development/Flutter/package-ux_improvements/example/android/app/.cxx/Debug/292p5w2u/x86_64/CMakeFiles/edit_cache.dir
+/Users/alexandersandten/Development/Flutter/package-ux_improvements/example/android/app/.cxx/Debug/292p5w2u/x86_64/CMakeFiles/rebuild_cache.dir

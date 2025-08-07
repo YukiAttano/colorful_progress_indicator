@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "yukiattano-8297d"
+  },
+  "targets": {
+    "yukiattano-8297d": {
+      "hosting": {
+        "colorful-progress-indicator": [
+          "colorful-progress-indicator"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -110,7 +110,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     return SweepGradient(
       tileMode: animationValue == maxRadians ? TileMode.repeated : TileMode.clamp,
       endAngle: endAngle,
-      transform: const GradientRotation(topLeftCorner),
+      transform: const GradientRotation(topCenter),
       stops: _progressFgStops,
       colors: [firstColor, bgColor],
     );
