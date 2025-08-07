@@ -30,8 +30,9 @@ dart pub add colorful_progress_indicator
 
 ## Usage
 
-(see /example folder for a working example and different use cases)
+(see /example folder or checkout the linked website above for different examples)
 
+Example of a Fixed-Indicator
 ```dart
 var radius = BorderRadius.circular(14);
 
@@ -58,8 +59,10 @@ FixedGradientProgressIndicator(
     ),
 );
 ```
-![fixed_gradient_progress_indicator_example.gif](assets/fixed_gradient_progress_indicator_example.gif)
+![fixed_gradient_progress_indicator.gif](assets/fixed_gradient_progress_indicator.gif)
 
+
+Example of a Moving-Indicator
 ```dart
 CircularMovingGradientProgressIndicator(
     progress: null,
@@ -74,6 +77,8 @@ CircularMovingGradientProgressIndicator(
 ```
 ![circular_moving_progress_indicator.gif](assets/circular_moving_progress_indicator.gif)
 
+
+Examples recorded from the /example project
 ![fixed_gradient_progress_indicator_example.gif](assets/fixed_gradient_progress_indicator_example.gif)
 
 ## Additional information
