@@ -26,8 +26,8 @@ class _BoxIndicator extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("This is the child of the loading\nindicator that gets surrounded by it"),
-              Text("Best results are achieved with square boxes"),
+              Text("This is the child of the loading\nindicator that gets surrounded by it."),
+              Text("Best results will be achieved with square boxes"),
             ],
           ),
         ),

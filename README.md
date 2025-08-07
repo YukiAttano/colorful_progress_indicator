@@ -33,8 +33,32 @@ dart pub add colorful_progress_indicator
 (see /example folder for a working example and different use cases)
 
 ```dart
+var radius = BorderRadius.circular(14);
 
+FixedGradientProgressIndicator(
+    progress: null,
+    thickness: EdgeInsets.all(2),
+    borderRadius: radius,
+    childBorderRadius: radius,
+    colors: GradientColors.razerChroma,
+    background: Theme.of(context).canvasColor,
+    child: Card(
+        shape: RoundedRectangleBorder(borderRadius: radius),
+        margin: EdgeInsets.zero,
+        child: Padding(
+            padding: EdgeInsets.all(12),
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                    Text("This is the child of the loading\nindicator that gets surrounded by it."),
+                    Text("Best results will be achieved with square boxes"),
+                ],
+            ),
+        ),
+    ),
+);
 ```
+![fixed_gradient_progress_indicator_example.gif](assets/fixed_gradient_progress_indicator_example.gif)
 
 ```dart
 CircularMovingGradientProgressIndicator(
@@ -49,6 +73,8 @@ CircularMovingGradientProgressIndicator(
 );
 ```
 ![circular_moving_progress_indicator.gif](assets/circular_moving_progress_indicator.gif)
+
+![fixed_gradient_progress_indicator_example.gif](assets/fixed_gradient_progress_indicator_example.gif)
 
 ## Additional information
 
