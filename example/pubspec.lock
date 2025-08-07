@@ -41,13 +41,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.1"
-  colorful_progress_indicator:
+  colorful_progress_spinner:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.1.0"
   cupertino_icons:
     dependency: "direct main"
     description:
