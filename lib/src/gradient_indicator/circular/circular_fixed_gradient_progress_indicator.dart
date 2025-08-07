@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-import "../../../colorful_progress_indicator.dart";
+import "../../../colorful_progress_spinner.dart";
 import "../../gradient_child.dart";
 
 class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndicator {

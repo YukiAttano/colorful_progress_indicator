@@ -1,4 +1,4 @@
-import 'package:colorful_progress_spinner/colorful_progress_indicator.dart';
+import 'package:colorful_progress_spinner/colorful_progress_spinner.dart';
 import 'package:example/shared/widgets/screen.dart';
 import 'package:example/shared/widgets/titled_slider.dart';
 import 'package:flutter/material.dart';

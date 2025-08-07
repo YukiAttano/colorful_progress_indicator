@@ -3,7 +3,7 @@ library;
 
 import "package:flutter/material.dart";
 
-import "../colorful_progress_indicator.dart";
+import "../colorful_progress_spinner.dart";
 
 /// a wrapper for any child a [GradientProgressIndicator] to scope context dependencies
 @protected
