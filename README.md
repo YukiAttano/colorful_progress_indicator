@@ -26,7 +26,7 @@ I recommend to take a look at the [example project](https://colorful-loading-ind
 ## Getting started
 
 ```terminal
-dart pub add colorful_progress_indicator
+dart pub add colorful_progress_spinner
 ```
 
 ## Usage
