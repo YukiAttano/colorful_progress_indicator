@@ -1,7 +1,13 @@
 name: colorful_progress_indicator
 description: "Different progress indicator based on Gradients"
-version: 0.0.1
-homepage:
+version: 0.1.0
+repository: https://github.com/YukiAttano/colorful_progress_indicator
+issue_tracker: https://github.com/YukiAttano/colorful_progress_indicator/issues
+topics:
+  - widget
+  - ui
+  - flutter
+
 
 environment:
   sdk: ^3.8.1

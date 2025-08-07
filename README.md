@@ -21,6 +21,7 @@ I recommend to take a look at the [example project](https://colorful-loading-ind
 
 - FixedGradientProgressIndicator (also as Circular and Linear)
 - MovingGradientProgressIndicator (also as Circular and Linear)
+- GradientColors (Razer Chroma and some Pride gradients)
 
 ## Getting started
 
@@ -76,10 +77,6 @@ CircularMovingGradientProgressIndicator(
 );
 ```
 ![circular_moving_progress_indicator.gif](assets/circular_moving_progress_indicator.gif)
-
-
-Examples recorded from the /example project
-![fixed_gradient_progress_indicator_example.gif](assets/fixed_gradient_progress_indicator_example.gif)
 
 ## Additional information
 
