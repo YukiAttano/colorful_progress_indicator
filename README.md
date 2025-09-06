@@ -80,10 +80,11 @@ CircularMovingGradientProgressIndicator(
 
 ## Additional information
 
-My personal main goal was to recreate the Chroma spinner animation of [Razer](https://www.razer.com)
-While this package achieves this goal, it has no RazerChromaIndicator widget kind of stuff.
+My personal main goal was to recreate the Chroma spinner animation of [Razer](https://www.razer.com).
 
-I am currently looking for ways implementing the current effects with custom render objects to let the animations be fluid around any boxed child.
+While this package achieves this goal, it has no explicit RazerChromaIndicator widget kind of stuff.
+
+I am currently interested in ways to implement the current effects with custom render objects.
 
 I had to rename the package to colorful_progress_spinner from colorful_progress_indicator because colorful_progress_indicator**s** is already picked,
 that's why the package name does not match any other naming.
