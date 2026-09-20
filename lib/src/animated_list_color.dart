@@ -3,12 +3,12 @@ import "package:flutter/material.dart";
 import "color_list_tween.dart";
 
 /// Interpolates between the last [colors] and new [colors].
-class GradientColorLerpWidget extends ImplicitlyAnimatedWidget {
+class AnimatedListColor extends ImplicitlyAnimatedWidget {
   final List<Color> colors;
   final bool enabled;
   final Widget Function(BuildContext context, List<Color> colors) builder;
 
-  const GradientColorLerpWidget({
+  const AnimatedListColor({
     super.key,
     required this.colors,
     required super.duration,
@@ -17,14 +17,14 @@ class GradientColorLerpWidget extends ImplicitlyAnimatedWidget {
   }) : enabled = enabled ?? true;
 
   @override
-  ImplicitlyAnimatedWidgetState<GradientColorLerpWidget> createState() => _GradientColorLerpWidgetState();
+  ImplicitlyAnimatedWidgetState<AnimatedListColor> createState() => _GradientColorLerpWidgetState();
 }
 
-class _GradientColorLerpWidgetState extends AnimatedWidgetBaseState<GradientColorLerpWidget> {
+class _GradientColorLerpWidgetState extends AnimatedWidgetBaseState<AnimatedListColor> {
   ColorListTween? _colors;
 
   @override
-  void didUpdateWidget(covariant GradientColorLerpWidget oldWidget) {
+  void didUpdateWidget(covariant AnimatedListColor oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (!widget.enabled) controller.value = controller.upperBound;

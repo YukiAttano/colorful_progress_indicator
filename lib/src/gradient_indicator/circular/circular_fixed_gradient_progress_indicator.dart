@@ -17,6 +17,8 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
     super.clipBehavior,
     super.filled,
     super.duration,
+    super.enabled,
+    super.background,
   }) : super.custom(
          child: CircularGradientChild(child: child),
          borderRadius: null,
@@ -37,6 +39,7 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
     Clip? clipBehavior,
     bool? filled,
     Duration? duration,
+    bool? enabled,
   }) : this.custom(
          key: key,
          child: child,
@@ -49,6 +52,8 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
          clipBehavior: clipBehavior,
          filled: filled,
          duration: duration,
+         enabled: enabled,
+         background: background,
        );
 
   static Gradient defaultFgGradient(Color bgColor, bool? filled, double animationValue) {

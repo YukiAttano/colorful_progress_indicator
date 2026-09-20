@@ -1,6 +1,6 @@
+export "src/animated_list_color.dart";
 export "src/color_list_tween.dart";
 export "src/consts.dart";
-export "src/gradient_color_lerp_widget.dart";
 export "src/gradient_indicator/box/fixed_gradient_progress_indicator.dart";
 export "src/gradient_indicator/box/moving_gradient_progress_indicator.dart";
 export "src/gradient_indicator/circular/circular_fixed_gradient_progress_indicator.dart";

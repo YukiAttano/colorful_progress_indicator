@@ -1,3 +1,9 @@
+## 0.1.1
+
+* Add `enabled` flag to enable/disable progress indicators
+* Add `background` color to all progress indicators
+* Add AnimatedListColor widget to animate between changing `List<Color>`s
+
 ## 0.1.0
 
 ### Added

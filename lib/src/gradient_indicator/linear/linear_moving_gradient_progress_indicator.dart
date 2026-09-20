@@ -15,9 +15,12 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
     super.childBorderRadius,
     super.filled,
     super.duration,
+    super.enabled,
+    super.background,
   }) : super.custom(
-      child: LinearGradientChild(child: child),
-      shape: BoxShape.rectangle);
+         child: LinearGradientChild(child: child),
+         shape: BoxShape.rectangle,
+       );
 
   LinearMovingGradientProgressIndicator({
     Key? key,
@@ -32,6 +35,8 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
     Duration? duration,
     AlignmentGeometry? begin,
     AlignmentGeometry? end,
+    bool? enabled,
+    Color? background,
   }) : this.custom(
          key: key,
          child: child,
@@ -43,6 +48,8 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
          childBorderRadius: childBorderRadius,
          filled: filled,
          duration: duration,
+         enabled: enabled,
+         background: background,
        );
 
   static Gradient defaultGradient(

@@ -19,6 +19,7 @@ class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicato
     super.childBorderRadius,
     super.filled,
     super.duration,
+    super.enabled,
   }) : super.custom(
          child: LinearGradientChild(child: child),
          shape: BoxShape.rectangle,
@@ -38,6 +39,7 @@ class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicato
     BorderRadius? childBorderRadius,
     bool? filled,
     Duration? duration,
+    bool? enabled,
   }) : this.custom(
          key: key,
          child: child,
@@ -52,6 +54,7 @@ class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicato
          childBorderRadius: childBorderRadius,
          filled: filled,
          duration: duration,
+         enabled: enabled,
        );
 
   static Gradient defaultFgGradient(Color bgColor, bool? filled, double animationValue) {

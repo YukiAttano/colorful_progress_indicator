@@ -13,8 +13,10 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
     super.clipBehavior,
     super.filled,
     super.duration,
+    super.enabled,
+    super.background,
   }) : super.custom(
-        child: CircularGradientChild(child: child),
+         child: CircularGradientChild(child: child),
          shape: BoxShape.circle,
          borderRadius: null,
          childBorderRadius: null,
@@ -30,6 +32,8 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
     Clip? clipBehavior,
     bool? filled,
     Duration? duration,
+    bool? enabled,
+    Color? background,
   }) : this.custom(
          key: key,
          child: child,
@@ -39,5 +43,7 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
          clipBehavior: clipBehavior,
          filled: filled,
          duration: duration,
+         enabled: enabled,
+         background: background,
        );
 }
