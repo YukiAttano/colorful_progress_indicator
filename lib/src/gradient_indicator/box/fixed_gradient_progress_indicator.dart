@@ -13,10 +13,13 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   static const List<double> _progressFgStops = [0.9999999, 1];
 
   final Widget? child;
-  final Gradient bgGradient;
 
+  final Gradient bgGradient;
   /// animationValue will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) fgGradient;
+
+  final bool enabled;
+
   final BoxShape shape;
   final EdgeInsets thickness;
 
@@ -29,12 +32,14 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   final Clip? clipBehavior;
   final bool filled;
   final MaterialType materialType;
+  final Color? background;
 
   const FixedGradientProgressIndicator.custom({
     super.key,
     this.child,
     required this.bgGradient,
     required this.fgGradient,
+    bool? enabled,
     super.progress,
     BoxShape? shape,
     EdgeInsets? thickness,
@@ -43,8 +48,10 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     this.clipBehavior,
     bool? filled,
     MaterialType? materialType,
+    this.background,
     super.duration,
-  }) : shape = shape ?? BoxShape.rectangle,
+  }) : enabled = enabled ?? true,
+        shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
@@ -55,9 +62,9 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     Key? key,
     required Widget child,
     required List<Color> colors,
-
     /// The background color of this widget, for example Theme.of(context).canvasColor
     required Color background,
+    bool? enabled,
     double? progress,
     EdgeInsets? thickness,
     BorderRadius? borderRadius,
@@ -73,6 +80,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
          fgGradient: progress == null
              ? (animationValue) => defaultFgGradient(background, filled, animationValue)
              : (animationValue) => defaultProgressFgGradient(background, animationValue),
+         enabled: enabled,
          progress: progress,
          thickness: thickness,
          borderRadius: borderRadius,
@@ -80,6 +88,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
          clipBehavior: clipBehavior,
          filled: filled,
          shape: shape,
+         background: background,
          duration: duration,
        );
 
@@ -158,12 +167,22 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
 
   @override
   Widget build(BuildContext context) {
+    Gradient? bgGradient = widget.bgGradient;
+    Gradient? fgGradient = _gradient;
+    if (!widget.enabled) {
+      bgGradient = null;
+      fgGradient = null;
+    }
+
+    BoxDecoration bgDeco = BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: bgGradient);
+    BoxDecoration fgDeco = BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: fgGradient);
+
     return DecoratedBox(
       // the static background gradient
-      decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: widget.bgGradient),
+      decoration: bgDeco,
       child: DecoratedBox(
-        // the animated foreground gradient which shows with transparent areas the background to create the illusion of progress
-        decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: _gradient),
+        // the animated foreground gradient which shows with transparent areas on the background to create the illusion of progress
+        decoration: fgDeco,
         child: Padding(
           padding: widget.thickness,
           child: GradientChild(
@@ -171,6 +190,7 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
             filled: widget.filled,
             type: widget.materialType,
             borderRadius: widget.childBorderRadius,
+            color: widget.background,
             child: widget.child,
           ),
         ),

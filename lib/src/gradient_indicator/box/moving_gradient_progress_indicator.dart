@@ -10,6 +10,9 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
 
   /// animationValue will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) gradient;
+
+  final bool enabled;
+
   final BoxShape shape;
   final EdgeInsets thickness;
 
@@ -22,11 +25,13 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   final Clip? clipBehavior;
   final bool filled;
   final MaterialType materialType;
+  final Color? background;
 
   const MovingGradientProgressIndicator.custom({
     super.key,
     this.child,
     required this.gradient,
+    bool? enabled,
     super.progress,
     BoxShape? shape,
     EdgeInsets? thickness,
@@ -35,8 +40,10 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     this.clipBehavior,
     bool? filled,
     MaterialType? materialType,
+    this.background,
     super.duration,
-  }) : shape = shape ?? BoxShape.rectangle,
+  }) : enabled = enabled ?? true,
+       shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
@@ -46,6 +53,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   MovingGradientProgressIndicator({
     Key? key,
     required Widget child,
+    bool? enabled,
     required List<Color> colors,
     double? progress,
     BoxShape? shape,
@@ -53,13 +61,14 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     BorderRadius? borderRadius,
     BorderRadius? childBorderRadius,
     Clip? clipBehavior,
-
-    /// if true, a transparent child (e.g. SizedBox) will show the whole gradient in its background
+    /// if true, the child will be transparent and shows the whole gradient in its background
     bool? filled,
+    Color? background,
     Duration? duration,
   }) : this.custom(
          key: key,
          child: child,
+         enabled: enabled,
          gradient: (animationValue) => defaultGradient(colors, animationValue),
          progress: progress,
          shape: shape,
@@ -68,6 +77,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
          childBorderRadius: childBorderRadius ?? borderRadius,
          clipBehavior: clipBehavior,
          filled: filled,
+         background: background,
          duration: duration,
        );
 
@@ -119,16 +129,18 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
 
   @override
   Widget build(BuildContext context) {
+    Gradient? gradient = widget.enabled ? _gradient : null;
+
     return DecoratedBox(
-      decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: _gradient),
+      decoration: BoxDecoration(shape: widget.shape, borderRadius: widget.borderRadius, gradient: gradient),
       child: Padding(
         padding: widget.thickness,
         child: GradientChild(
           clipBehavior: widget.clipBehavior,
           filled: widget.filled,
-
           type: widget.materialType,
           borderRadius: widget.childBorderRadius,
+          color: widget.background,
           child: widget.child,
         ),
       ),

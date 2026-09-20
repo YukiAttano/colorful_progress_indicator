@@ -13,6 +13,7 @@ class GradientChild extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Clip clipBehavior;
   final bool filled;
+  final Color? color;
 
   const GradientChild({
     super.key,
@@ -21,12 +22,13 @@ class GradientChild extends StatelessWidget {
     required this.borderRadius,
     required Clip? clipBehavior,
     required this.filled,
+    required this.color,
   }) : clipBehavior = clipBehavior ?? Clip.none;
 
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
-    Color color = filled ? Colors.transparent : theme.canvasColor;
+    Color color = filled ? Colors.transparent : this.color ?? theme.canvasColor;
 
     return Material(clipBehavior: clipBehavior, color: color, type: type, borderRadius: borderRadius, child: child);
   }
@@ -58,9 +60,12 @@ class LinearGradientChild extends StatelessWidget {
   Widget build(BuildContext context) {
     ProgressIndicatorThemeData indicatorTheme = ProgressIndicatorTheme.of(context);
 
-    return ConstrainedBox(constraints: BoxConstraints(
-      minWidth: double.infinity,
-      maxHeight: indicatorTheme.linearMinHeight ?? linearDefaultMinHeight,
-    ), child: child);
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minWidth: double.infinity,
+        maxHeight: indicatorTheme.linearMinHeight ?? linearDefaultMinHeight,
+      ),
+      child: child,
+    );
   }
 }
