@@ -6,9 +6,11 @@ import "../consts.dart";
 abstract class GradientProgressIndicator extends StatefulWidget {
   final double? progress;
   final Duration duration;
+  final bool enabled;
 
-  const GradientProgressIndicator({super.key, this.progress, Duration? duration})
-    : duration = duration ?? const Duration(seconds: 2);
+  const GradientProgressIndicator({super.key, this.progress, Duration? duration, bool? enabled})
+    : duration = duration ?? const Duration(seconds: 2),
+      enabled = enabled ?? true;
 
   @override
   State<GradientProgressIndicator> createState();

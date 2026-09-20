@@ -15,10 +15,9 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   final Widget? child;
 
   final Gradient bgGradient;
+
   /// animationValue will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) fgGradient;
-
-  final bool enabled;
 
   final BoxShape shape;
   final EdgeInsets thickness;
@@ -39,7 +38,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     this.child,
     required this.bgGradient,
     required this.fgGradient,
-    bool? enabled,
+    super.enabled,
     super.progress,
     BoxShape? shape,
     EdgeInsets? thickness,
@@ -50,8 +49,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     MaterialType? materialType,
     this.background,
     super.duration,
-  }) : enabled = enabled ?? true,
-        shape = shape ?? BoxShape.rectangle,
+  }) : shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
        childBorderRadius = shape == BoxShape.circle ? null : childBorderRadius,
@@ -62,6 +60,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     Key? key,
     required Widget child,
     required List<Color> colors,
+
     /// The background color of this widget, for example Theme.of(context).canvasColor
     required Color background,
     bool? enabled,

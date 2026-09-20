@@ -11,8 +11,6 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   /// animationValue will be between 0 and [maxRadians]
   final Gradient Function(double animationValue) gradient;
 
-  final bool enabled;
-
   final BoxShape shape;
   final EdgeInsets thickness;
 
@@ -31,7 +29,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     super.key,
     this.child,
     required this.gradient,
-    bool? enabled,
+    super.enabled,
     super.progress,
     BoxShape? shape,
     EdgeInsets? thickness,
@@ -42,7 +40,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
     MaterialType? materialType,
     this.background,
     super.duration,
-  }) : enabled = enabled ?? true,
+  }) :
        shape = shape ?? BoxShape.rectangle,
        thickness = thickness ?? const EdgeInsets.all(4),
        borderRadius = shape == BoxShape.circle ? null : borderRadius,
