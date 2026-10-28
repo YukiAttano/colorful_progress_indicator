@@ -1,13 +1,14 @@
 import "package:flutter/material.dart";
 
-import "../../../colorful_progress_spinner.dart";
-import "../../gradient_child.dart";
+import "../../../../colorful_progress_spinner.dart";
+import "../../../gradient_child.dart";
+import "../box/fixed_gradient_progress_indicator.dart";
 
-class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
+class CircularFixedGradientProgressIndicatorV1 extends FixedGradientProgressIndicatorV1 {
   static const List<double> _fgEasedStops = [0.45, 0.5];
   static const List<double> _fgHardStops = [0.5, 0.5];
 
-  CircularFixedGradientProgressIndicator.custom({
+  CircularFixedGradientProgressIndicatorV1.custom({
     super.key,
     Widget? child,
     required super.bgGradient,
@@ -27,7 +28,7 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
          shape: BoxShape.circle,
        );
 
-  CircularFixedGradientProgressIndicator({
+  CircularFixedGradientProgressIndicatorV1({
     Key? key,
     Widget? child,
     required List<Color> colors,
@@ -46,7 +47,7 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
          bgGradient: SweepGradient(transform: const GradientRotation(topCenter), colors: colors),
          fgGradient: progress == null
              ? (animationValue) => defaultFgGradient(background, filled, animationValue)
-             : (animationValue) => FixedGradientProgressIndicator.defaultProgressFgGradient(background, animationValue),
+             : (animationValue) => FixedGradientProgressIndicatorV1.defaultProgressFgGradient(background, animationValue),
          progress: progress,
          thickness: thickness,
          clipBehavior: clipBehavior,
@@ -57,9 +58,9 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
        );
 
   static Gradient defaultFgGradient(Color bgColor, bool? filled, double animationValue) {
-    return FixedGradientProgressIndicator.defaultFgGradientWithStops(
+    return FixedGradientProgressIndicatorV1.defaultFgGradientWithStops(
       bgColor,
-      FixedGradientProgressIndicator.fillChild(filled) ? _fgHardStops : _fgEasedStops,
+      FixedGradientProgressIndicatorV1.fillChild(filled) ? _fgHardStops : _fgEasedStops,
       animationValue,
     );
   }

@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 
-import "../../consts.dart";
-import "../../gradient_child.dart";
-import "../gradient_progress_indicator.dart";
+import "../../../consts.dart";
+import "../../../gradient_child.dart";
+import "../../gradient_progress_indicator.dart";
 
 /// A progress indicator that animates the given gradient around another widget
-class MovingGradientProgressIndicator extends GradientProgressIndicator {
+class MovingGradientProgressIndicatorV1 extends GradientProgressIndicator {
   final Widget? child;
 
   /// animationValue will be between 0 and [maxRadians]
@@ -25,7 +25,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   final MaterialType materialType;
   final Color? background;
 
-  const MovingGradientProgressIndicator.custom({
+  const MovingGradientProgressIndicatorV1.custom({
     super.key,
     this.child,
     required this.gradient,
@@ -48,7 +48,7 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
        filled = filled ?? false,
        materialType = materialType ?? MaterialType.canvas;
 
-  MovingGradientProgressIndicator({
+  MovingGradientProgressIndicatorV1({
     Key? key,
     required Widget child,
     bool? enabled,
@@ -88,10 +88,10 @@ class MovingGradientProgressIndicator extends GradientProgressIndicator {
   static bool fillChild(bool? filled) => filled ?? false;
 
   @override
-  State<MovingGradientProgressIndicator> createState() => _MovingGradientProgressIndicatorState();
+  State<MovingGradientProgressIndicatorV1> createState() => _MovingGradientProgressIndicatorState();
 }
 
-class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorState<MovingGradientProgressIndicator> {
+class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorState<MovingGradientProgressIndicatorV1> {
   late Gradient _gradient;
 
   @override
@@ -111,7 +111,7 @@ class _MovingGradientProgressIndicatorState extends GradientProgressIndicatorSta
   }
 
   @override
-  void didUpdateWidget(covariant MovingGradientProgressIndicator oldWidget) {
+  void didUpdateWidget(covariant MovingGradientProgressIndicatorV1 oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.progress != widget.progress) {

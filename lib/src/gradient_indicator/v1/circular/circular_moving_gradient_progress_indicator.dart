@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
-import "../../../colorful_progress_spinner.dart";
-import "../../gradient_child.dart";
+import "../../../gradient_child.dart";
+import "../box/moving_gradient_progress_indicator.dart";
 
-class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
-  CircularMovingGradientProgressIndicator.custom({
+class CircularMovingGradientProgressIndicatorV1 extends MovingGradientProgressIndicatorV1 {
+  CircularMovingGradientProgressIndicatorV1.custom({
     super.key,
     Widget? child,
     required super.gradient,
@@ -23,7 +23,7 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
          materialType: MaterialType.circle,
        );
 
-  CircularMovingGradientProgressIndicator({
+  CircularMovingGradientProgressIndicatorV1({
     Key? key,
     Widget? child,
     required List<Color> colors,
@@ -37,7 +37,7 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
   }) : this.custom(
          key: key,
          child: child,
-         gradient: (animationValue) => MovingGradientProgressIndicator.defaultGradient(colors, animationValue),
+         gradient: (animationValue) => MovingGradientProgressIndicatorV1.defaultGradient(colors, animationValue),
          progress: progress,
          thickness: thickness,
          clipBehavior: clipBehavior,

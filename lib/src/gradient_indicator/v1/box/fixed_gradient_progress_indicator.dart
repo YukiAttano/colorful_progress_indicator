@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 
-import "../../consts.dart";
-import "../../gradient_child.dart";
-import "../gradient_progress_indicator.dart";
+import "../../../consts.dart";
+import "../../../gradient_child.dart";
+import "../../gradient_progress_indicator.dart";
 
 /// A progress indicator that shows the same color on the same position while animating.
 ///
 /// Works by drawing a Gradient in the background and partially revealing it with applying a foreground gradient on it.
-class FixedGradientProgressIndicator extends GradientProgressIndicator {
+class FixedGradientProgressIndicatorV1 extends GradientProgressIndicator {
   static const List<double> _fgEasedStops = [0.25, 0.5];
   static const List<double> _fgHardStops = [0.5, 0.5];
   static const List<double> _progressFgStops = [0.9999999, 1];
@@ -33,7 +33,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   final MaterialType materialType;
   final Color? background;
 
-  const FixedGradientProgressIndicator.custom({
+  const FixedGradientProgressIndicatorV1.custom({
     super.key,
     this.child,
     required this.bgGradient,
@@ -56,7 +56,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
        filled = filled ?? false,
        materialType = materialType ?? MaterialType.canvas;
 
-  FixedGradientProgressIndicator({
+  FixedGradientProgressIndicatorV1({
     Key? key,
     required Widget child,
     required List<Color> colors,
@@ -127,10 +127,10 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   static bool fillChild(bool? filled) => filled ?? false;
 
   @override
-  State<FixedGradientProgressIndicator> createState() => _FixedGradientProgressIndicatorState();
+  State<FixedGradientProgressIndicatorV1> createState() => _FixedGradientProgressIndicatorState();
 }
 
-class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorState<FixedGradientProgressIndicator> {
+class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorState<FixedGradientProgressIndicatorV1> {
   late Gradient _gradient;
 
   @override
@@ -150,7 +150,7 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
   }
 
   @override
-  void didUpdateWidget(covariant FixedGradientProgressIndicator oldWidget) {
+  void didUpdateWidget(covariant FixedGradientProgressIndicatorV1 oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.progress != widget.progress) {

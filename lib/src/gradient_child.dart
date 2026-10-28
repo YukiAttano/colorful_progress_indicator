@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 
 import "../colorful_progress_spinner.dart";
 
+@Deprecated("V1 is marked as legacy and will be removed")
 /// a wrapper for any child a [GradientProgressIndicator] to scope context dependencies
 @protected
 class GradientChild extends StatelessWidget {

@@ -1,13 +1,14 @@
 import "package:flutter/material.dart";
 
-import "../../../colorful_progress_spinner.dart";
-import "../../gradient_child.dart";
+import "../../../../colorful_progress_spinner.dart";
+import "../../../gradient_child.dart";
+import "../box/fixed_gradient_progress_indicator.dart";
 
-class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
+class LinearFixedGradientProgressIndicatorV1 extends FixedGradientProgressIndicatorV1 {
   static const List<double> _fgStops = [0.8, 1];
   static final Tween<double> _slideTween = Tween(begin: -0.5, end: 1.5);
 
-  LinearFixedGradientProgressIndicator.custom({
+  LinearFixedGradientProgressIndicatorV1.custom({
     super.key,
     Widget? child,
     required super.bgGradient,
@@ -25,7 +26,7 @@ class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicato
          shape: BoxShape.rectangle,
        );
 
-  LinearFixedGradientProgressIndicator({
+  LinearFixedGradientProgressIndicatorV1({
     Key? key,
     Widget? child,
     required List<Color> colors,

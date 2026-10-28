@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
 
-import "../../../colorful_progress_spinner.dart";
-import "../../gradient_child.dart";
+import "../../../../colorful_progress_spinner.dart";
+import "../../../gradient_child.dart";
+import "../box/moving_gradient_progress_indicator.dart";
 
-class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
-  LinearMovingGradientProgressIndicator.custom({
+class LinearMovingGradientProgressIndicatorV1 extends MovingGradientProgressIndicatorV1 {
+  LinearMovingGradientProgressIndicatorV1.custom({
     super.key,
     Widget? child,
     required super.gradient,
@@ -22,7 +23,7 @@ class LinearMovingGradientProgressIndicator extends MovingGradientProgressIndica
          shape: BoxShape.rectangle,
        );
 
-  LinearMovingGradientProgressIndicator({
+  LinearMovingGradientProgressIndicatorV1({
     Key? key,
     Widget? child,
     required List<Color> colors,
