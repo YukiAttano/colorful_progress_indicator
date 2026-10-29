@@ -33,7 +33,7 @@ V2 (current)
 With package version 0.2.0, all progress indicator will gradually be based on CustomPainter instead 
 of relying on BoxDecorations.
 All old progress indicator are available under the new import `colorful_progress_spinner_v1.dart` 
-and are renamed to <OldName>V1.
+and are renamed to `<OldName>V1`.
 
 ## Getting started
 
