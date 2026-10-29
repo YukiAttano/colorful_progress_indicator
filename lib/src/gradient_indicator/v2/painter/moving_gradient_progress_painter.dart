@@ -33,7 +33,8 @@ class MovingGradientProgressPainter extends CustomPainter {
 
     Paint paint = Paint()
       ..shader = gradient.createShader(rect)
-      ..strokeCap = StrokeCap.round;
+      ..strokeWidth = borderWidth
+      ..strokeCap = StrokeCap.butt;
 
     paint.style = filled ? PaintingStyle.fill : PaintingStyle.stroke;
 
@@ -44,10 +45,10 @@ class MovingGradientProgressPainter extends CustomPainter {
     RRect outerRRect = borderRadius.toRRect(rect);
 
     // alternative way to remove filled content, but doesn't match the correct border width
-    // RRect innerRRect = outerRRect.deflate(borderWidth);
-    // path
-    //   ..addRRect(innerRRect)
-    //   ..fillType = PathFillType.evenOdd;
+     RRect innerRRect = outerRRect.deflate(borderWidth);
+     path
+       ..addRRect(innerRRect)
+       ..fillType = PathFillType.evenOdd;
 
     path.addRRect(outerRRect);
   }
@@ -58,6 +59,10 @@ class MovingGradientProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant MovingGradientProgressPainter old) {
-    return old.borderRadius != borderRadius || old.borderWidth != borderWidth || old.gradient != gradient;
+    return old.borderRadius != borderRadius ||
+        old.borderWidth != borderWidth ||
+        old.gradient != gradient ||
+        old.shape != shape ||
+        old.filled != filled;
   }
 }

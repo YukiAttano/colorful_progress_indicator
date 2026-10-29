@@ -19,9 +19,20 @@ I recommend to take a look at the [example project](https://colorful-loading-ind
 
 ## Features
 
+- GradientColors (Razer Chroma and some Pride gradients)
+
+V1
 - FixedGradientProgressIndicator (also as Circular and Linear)
 - MovingGradientProgressIndicator (also as Circular and Linear)
-- GradientColors (Razer Chroma and some Pride gradients)
+
+V2
+- FixedGradientProgressIndicator (also as Circular)
+- MovingGradientProgressIndicator (also as Circular)
+
+With package version 0.2.0, all progress indicator will gradually be based on CustomPainter instead 
+of relying on BoxDecorations.
+All old progress indicator are available under the new import `colorful_progress_spinner_v1.dart` 
+and are renamed to <OldName>V1.
 
 ## Getting started
 
@@ -33,27 +44,33 @@ dart pub add colorful_progress_spinner
 
 (see /example folder or checkout the linked website above for different examples)
 
-Example of a Fixed-Indicator
+Example of a moving indicator
 ```dart
-var radius = BorderRadius.circular(14);
+var radius = BorderRadius.only(
+  topLeft: Radius.circular(20),
+  bottomRight: Radius.circular(20),
+);
+var width = 10;
 
-FixedGradientProgressIndicator(
-    progress: null,
-    thickness: EdgeInsets.all(2),
+MovingGradientProgressIndicator(
+    duration: const Duration(seconds: 5),
+    colors: [
+        ...GradientColors.razerChroma,
+        GradientColors.razerChroma.first,
+    ],
     borderRadius: radius,
-    childBorderRadius: radius,
-    colors: GradientColors.razerChroma,
-    background: Theme.of(context).canvasColor,
+    width: width,
     child: Card(
-        shape: RoundedRectangleBorder(borderRadius: radius),
-        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: radius,
+        ),
+        margin: EdgeInsets.all(width / 2),
         child: Padding(
             padding: EdgeInsets.all(12),
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                    Text("This is the child of the loading\nindicator that gets surrounded by it."),
-                    Text("Best results will be achieved with square boxes"),
+                  Text("This is the child of the loading\nindicator that gets surrounded by it."),
                 ],
             ),
         ),
@@ -63,19 +80,6 @@ FixedGradientProgressIndicator(
 ![fixed_gradient_progress_indicator.gif](assets/fixed_gradient_progress_indicator.gif)
 
 
-Example of a Moving-Indicator
-```dart
-CircularMovingGradientProgressIndicator(
-    progress: null,
-    thickness: EdgeInsets.all(2),
-    colors: GradientColors.razerChroma,
-    child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 50,
-        child: Text("Example"),
-    ),
-);
-```
 ![circular_moving_progress_indicator.gif](assets/circular_moving_progress_indicator.gif)
 
 ## Additional information
@@ -83,8 +87,6 @@ CircularMovingGradientProgressIndicator(
 My personal main goal was to recreate the Chroma spinner animation of [Razer](https://www.razer.com).
 
 While this package achieves this goal, it has no explicit RazerChromaIndicator widget kind of stuff.
-
-I am currently interested in ways to implement the current effects with custom render objects.
 
 I had to rename the package to colorful_progress_spinner from colorful_progress_indicator because colorful_progress_indicator**s** is already picked,
 that's why the package name does not match any other naming.

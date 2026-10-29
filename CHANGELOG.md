@@ -1,8 +1,9 @@
 ## 0.2.0
 
+** BREAKING CHANGES**
 * Replaced all progress indicator with CustomPainter
 * Renamed all old progress indicator to `<OldName>V1` under the custom import `colorful_progress_spinner_v1.dart`
-* Progress indicator start at the top left and no longer at the top center
+* Rectangular progress indicator start at the top left, while circular ones at the top center
 
 ## 0.1.1
 
