@@ -15,7 +15,7 @@ class FixedGradientProgressPainter extends CustomPainter {
   /// The relative length of the border when [fixed] is false
   final double relativeLength;
 
-  /// If the progress is indeterminate, [fixed] is false, otherwise true
+  /// If [fixed] is false, progress is indeterminate
   final bool fixed;
 
   late void Function(Path path, Rect rect) _drawShape;

@@ -10,7 +10,7 @@ class _CircularIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircularFixedGradientProgressIndicator(
+    return CircularFixedGradientProgressIndicatorV1(
       progress: progress,
       thickness: thickness,
       colors: colors,

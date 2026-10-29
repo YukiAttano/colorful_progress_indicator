@@ -12,7 +12,7 @@ class _BoxIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     var radius = BorderRadius.circular(14);
 
-    return MovingGradientProgressIndicator(
+    return MovingGradientProgressIndicatorV1(
       progress: progress,
       thickness: thickness,
       borderRadius: radius,

@@ -12,7 +12,7 @@ class _LinearIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     var radius = BorderRadius.circular(14);
 
-    return LinearFixedGradientProgressIndicator(
+    return LinearFixedGradientProgressIndicatorV1(
       progress: progress,
       thickness: thickness,
       borderRadius: radius,

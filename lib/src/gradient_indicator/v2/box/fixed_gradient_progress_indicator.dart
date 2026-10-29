@@ -1,5 +1,3 @@
-import "dart:ui";
-
 import "package:flutter/material.dart";
 
 import "../../../../colorful_progress_spinner.dart";
@@ -13,7 +11,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   final Widget? child;
 
   /// animationValue will be between 0 and [maxRadians]
-  final Gradient Function(double animationValue) fgGradient;
+  final Gradient Function(double animationValue) gradient;
 
   final double width;
 
@@ -26,7 +24,7 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   const FixedGradientProgressIndicator.custom({
     super.key,
     this.child,
-    required this.fgGradient,
+    required this.gradient,
     super.enabled,
     super.progress,
     double? width,
@@ -36,12 +34,12 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     super.duration,
   }) : width = width ?? 1,
        borderRadius = borderRadius ?? BorderRadius.zero,
-  shape = shape ?? BoxShape.rectangle,
+       shape = shape ?? BoxShape.rectangle,
        fixed = progress != null;
 
   FixedGradientProgressIndicator({
     Key? key,
-    required Widget child,
+    Widget? child,
     required List<Color> colors,
     bool? enabled,
     double? progress,
@@ -52,19 +50,24 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
   }) : this.custom(
          key: key,
          child: child,
-         fgGradient: (animationValue) => defaultProgressFgGradient(colors, animationValue),
+         gradient: (animationValue) => defaultProgressGradient(shape ?? BoxShape.rectangle, colors, animationValue),
          enabled: enabled,
          progress: progress,
          width: width,
          borderRadius: borderRadius,
-         shape:  shape,
+         shape: shape,
          duration: duration,
        );
 
-  static Gradient defaultProgressFgGradient(List<Color> colors, double animationValue) {
+  static Gradient defaultProgressGradient(BoxShape shape, List<Color> colors, double animationValue) {
+    GradientTransform transform = switch (shape) {
+      BoxShape.rectangle => const GradientRotation(topLeftCorner),
+      BoxShape.circle => const GradientRotation(topCenter),
+    };
+
     return SweepGradient(
       tileMode: animationValue == maxRadians ? TileMode.repeated : TileMode.clamp,
-      transform: const GradientRotation(topLeftCorner),
+      transform: transform,
       colors: colors,
     );
   }
@@ -98,30 +101,28 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
 
     if (oldWidget.progress != widget.progress) {
       updateProgress(animate: oldWidget.progress != null && widget.progress != null);
-    } else if (oldWidget.fgGradient != widget.fgGradient) {
+    } else if (oldWidget.gradient != widget.gradient) {
       _updateGradient();
     }
   }
 
   void _updateGradient() {
-    _gradient = widget.fgGradient(controller.value);
+    _gradient = widget.gradient(controller.value);
   }
 
   @override
   Widget build(BuildContext context) {
-    Gradient? fgGradient = _gradient;
-
     FixedGradientProgressPainter? painter;
 
     if (widget.enabled) {
       painter = FixedGradientProgressPainter(
         progress: controller.value / maxRadians,
-        gradient: fgGradient,
+        gradient: _gradient,
         borderWidth: widget.width,
         borderRadius: widget.borderRadius,
         shape: widget.shape,
         fixed: widget.fixed,
-        relativeLength: widget.fixed ? 1 : 0.5,
+        relativeLength: 1, //widget.fixed ? 1 : 0.5,
       );
     }
 
