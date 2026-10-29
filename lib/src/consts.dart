@@ -10,6 +10,10 @@ const double maxRadians = math.pi * 2;
 const double topLeftCorner = (180 + 45) * math.pi / 180;
 const double topCenter = -(math.pi / 2);
 
+const double fourthCircle = halfCircle / 2;
+const double halfCircle = math.pi;
+const double fullCircle = 2 * halfCircle;
+
 /// default constraints for [CircularProgressIndicator] Material 3 y2023 and Material 2
 const BoxConstraints circularDefaultConstraints = BoxConstraints(minWidth: 36, minHeight: 36);
 

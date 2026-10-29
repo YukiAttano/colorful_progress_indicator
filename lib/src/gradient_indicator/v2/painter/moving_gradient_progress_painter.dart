@@ -7,6 +7,8 @@ class MovingGradientProgressPainter extends CustomPainter {
   final BoxShape shape;
   final bool filled;
 
+  late void Function(Path path, Rect rect) _drawShape;
+
   MovingGradientProgressPainter({
     required this.borderRadius,
     required this.borderWidth,
@@ -22,21 +24,12 @@ class MovingGradientProgressPainter extends CustomPainter {
     }
   }
 
-  late void Function(Path path, Rect rect) _drawShape;
-
   @override
   void paint(Canvas canvas, Size size) {
     Rect rect = Offset.zero & size;
 
     Path path = Path();
     _drawShape(path, rect);
-
-    // if (!filled) {
-    //   RRect innerRRect = outerRRect.deflate(borderWidth);
-    //   path
-    //     ..addRRect(innerRRect)
-    //     ..fillType = PathFillType.evenOdd;
-    // }
 
     Paint paint = Paint()
       ..shader = gradient.createShader(rect)
@@ -49,6 +42,12 @@ class MovingGradientProgressPainter extends CustomPainter {
 
   void _addRRect(Path path, Rect rect) {
     RRect outerRRect = borderRadius.toRRect(rect);
+
+    // alternative way to remove filled content, but doesn't match the correct border width
+    // RRect innerRRect = outerRRect.deflate(borderWidth);
+    // path
+    //   ..addRRect(innerRRect)
+    //   ..fillType = PathFillType.evenOdd;
 
     path.addRRect(outerRRect);
   }

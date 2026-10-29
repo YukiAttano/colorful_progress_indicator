@@ -3,10 +3,13 @@ import "dart:ui";
 
 import "package:flutter/material.dart";
 
+import "../../../../colorful_progress_spinner.dart";
+
 class FixedGradientProgressPainter extends CustomPainter {
   final BorderRadius borderRadius;
   final double borderWidth;
   final Gradient gradient;
+  final BoxShape shape;
   final double progress;
 
   /// The relative length of the border when [fixed] is false
@@ -15,23 +18,34 @@ class FixedGradientProgressPainter extends CustomPainter {
   /// If the progress is indeterminate, [fixed] is false, otherwise true
   final bool fixed;
 
+  late void Function(Path path, Rect rect) _drawShape;
+
   FixedGradientProgressPainter({
     required this.borderRadius,
     required this.borderWidth,
     required this.gradient,
+    required this.shape,
     required this.progress,
     required this.relativeLength,
     required this.fixed,
-  }) : assert(relativeLength >= 0 && relativeLength <= 1, "relativeLength must be between 0 and 1");
+  }) : assert(relativeLength >= 0 && relativeLength <= 1, "relativeLength must be between 0 and 1") {
+    switch (shape) {
+      case BoxShape.rectangle:
+        _drawShape = _addRRect;
+      case BoxShape.circle:
+        _drawShape = _addCircle;
+    }
+  }
 
   @override
   void paint(Canvas canvas, Size size) {
     if (progress <= 0.0) return;
 
     Rect rect = Offset.zero & size;
-    RRect rrect = borderRadius.toRRect(rect);
 
-    Path fullPath = Path()..addRRectFromTopLeftCenter(rrect);
+    Path fullPath = Path();
+    
+    _drawShape(fullPath, rect);
 
     // compute path and only show half of it
     PathMetric metric = fullPath.computeMetrics().first;
@@ -69,6 +83,16 @@ class FixedGradientProgressPainter extends CustomPainter {
 
     canvas.drawPath(extractedPath, paint);
   }
+  
+  void _addRRect(Path path, Rect rect) {
+    RRect rrect = borderRadius.toRRect(rect);
+
+    path.addRRectFromTopLeftCenter(rrect);
+  }
+
+  void _addCircle(Path path, Rect rect) {
+    path.addArc(rect, topCenter, fullCircle);
+  }
 
   @override
   bool shouldRepaint(covariant FixedGradientProgressPainter old) {
@@ -76,6 +100,7 @@ class FixedGradientProgressPainter extends CustomPainter {
         old.borderWidth != borderWidth ||
         old.gradient != gradient ||
         old.progress != progress ||
+        old.relativeLength != relativeLength ||
         old.fixed != fixed;
   }
 }
