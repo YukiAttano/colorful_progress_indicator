@@ -1,3 +1,4 @@
+import "dart:math" as math;
 import "dart:ui";
 
 import "package:flutter/material.dart";
@@ -7,6 +8,11 @@ class FixedGradientProgressPainter extends CustomPainter {
   final double borderWidth;
   final Gradient gradient;
   final double progress;
+
+  /// The relative length of the border when [fixed] is false
+  final double relativeLength;
+
+  /// If the progress is indeterminate, [fixed] is false, otherwise true
   final bool fixed;
 
   FixedGradientProgressPainter({
@@ -14,8 +20,9 @@ class FixedGradientProgressPainter extends CustomPainter {
     required this.borderWidth,
     required this.gradient,
     required this.progress,
+    required this.relativeLength,
     required this.fixed,
-  });
+  }) : assert(relativeLength >= 0 && relativeLength <= 1, "relativeLength must be between 0 and 1");
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -24,12 +31,12 @@ class FixedGradientProgressPainter extends CustomPainter {
     Rect rect = Offset.zero & size;
     RRect rrect = borderRadius.toRRect(rect);
 
-    Path fullPath = Path()..addRRectFromTopLeft(rrect);
+    Path fullPath = Path()..addRRectFromTopLeftCenter(rrect);
 
     // compute path and only show half of it
     PathMetric metric = fullPath.computeMetrics().first;
     double totalLength = metric.length;
-    double windowLength = totalLength / 2;
+    double windowLength = totalLength * relativeLength;
 
     double start = 0;
     if (!fixed) {
@@ -56,8 +63,8 @@ class FixedGradientProgressPainter extends CustomPainter {
 
     Paint paint = Paint()
       ..shader = gradient.createShader(rect)
-      ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth
+      ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
     canvas.drawPath(extractedPath, paint);
@@ -74,6 +81,11 @@ class FixedGradientProgressPainter extends CustomPainter {
 }
 
 extension PathExtension on Path {
+  static final double _halfSqrt = math.sqrt(0.5);
+
+  /// Flutter default [Path.addRRect] starts their path at the bottom left, after the arc.
+  ///
+  /// This method starts at the top left, before the arc.
   void addRRectFromTopLeft(RRect rrect) {
     moveTo(
       rrect.left,
@@ -91,7 +103,10 @@ extension PathExtension on Path {
       Offset(rrect.right, rrect.top + rrect.trRadius.y),
       radius: rrect.trRadius,
     );
-    lineTo(rrect.right, rrect.bottom - rrect.brRadius.y);
+    lineTo(
+      rrect.right,
+      rrect.bottom - rrect.brRadius.y,
+    );
     arcToPoint(
       Offset(rrect.right - rrect.brRadius.x, rrect.bottom),
       radius: rrect.brRadius,
@@ -107,6 +122,62 @@ extension PathExtension on Path {
     lineTo(
       rrect.left,
       rrect.top + rrect.tlRadius.y,
+    );
+    close();
+  }
+
+  /// This method starts at the top left, in the mid of the arc.
+  void addRRectFromTopLeftCenter(RRect rrect) {
+    double rx = rrect.tlRadius.x;
+    double ry = rrect.tlRadius.y;
+    double cx = rrect.left + rx;
+    double cy = rrect.top + ry;
+
+    // Midpoint of the top-left arc
+    double midX = cx - rx * _halfSqrt;
+    double midY = cy - ry * _halfSqrt;
+
+    // Start at the center (midpoint) of the top-left arc
+    moveTo(midX, midY);
+
+    // Complete the first half of the top-left arc
+    arcToPoint(
+      Offset(rrect.left + rx, rrect.top),
+      radius: rrect.tlRadius,
+    );
+    lineTo(
+      rrect.right - rrect.trRadius.x,
+      rrect.top,
+    );
+    arcToPoint(
+      Offset(rrect.right, rrect.top + rrect.trRadius.y),
+      radius: rrect.trRadius,
+    );
+    lineTo(
+      rrect.right,
+      rrect.bottom - rrect.brRadius.y,
+    );
+    arcToPoint(
+      Offset(rrect.right - rrect.brRadius.x, rrect.bottom),
+      radius: rrect.brRadius,
+    );
+    lineTo(
+      rrect.left + rrect.blRadius.x,
+      rrect.bottom,
+    );
+    arcToPoint(
+      Offset(rrect.left, rrect.bottom - rrect.blRadius.y),
+      radius: rrect.blRadius,
+    );
+    lineTo(
+      rrect.left,
+      rrect.top + ry,
+    );
+
+    // Complete the second half of the top-left arc back to the starting point
+    arcToPoint(
+      Offset(midX, midY),
+      radius: rrect.tlRadius,
     );
     close();
   }

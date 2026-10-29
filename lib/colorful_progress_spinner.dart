@@ -2,6 +2,6 @@ export "src/animated_list_color.dart";
 export "src/color_list_tween.dart";
 export "src/consts.dart";
 export "src/gradient_indicator/v2/box/fixed_gradient_progress_indicator.dart";
-export "src/gradient_indicator/v2/box/moving_progress_indicator.dart";
+export "src/gradient_indicator/v2/box/moving_gradient_progress_indicator.dart";
 export "src/gradient_transform/sliding_gradient_transform.dart";
 export "src/gradients.dart";
