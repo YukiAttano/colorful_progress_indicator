@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../../../../colorful_progress_spinner.dart";
+import "../../../gradient_child.dart";
 import "../box/fixed_gradient_progress_indicator.dart";
 
 class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
@@ -11,7 +12,6 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
     super.enabled,
     super.progress,
     super.width,
-    super.filled,
     super.duration,
   }) : super.custom(
          borderRadius: null,
@@ -28,7 +28,7 @@ class CircularFixedGradientProgressIndicator extends FixedGradientProgressIndica
     Duration? duration,
   }) : this.custom(
          key: key,
-         child: child,
+         child: CircularGradientChild(child: child),
          gradient: (animationValue) =>
              FixedGradientProgressIndicator.defaultProgressGradient(BoxShape.circle, colors, animationValue),
          enabled: enabled,

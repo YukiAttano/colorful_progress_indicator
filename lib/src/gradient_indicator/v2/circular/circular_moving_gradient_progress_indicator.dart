@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../../../gradient_child.dart";
 import "../box/moving_gradient_progress_indicator.dart";
 
 class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndicator {
@@ -28,7 +29,7 @@ class CircularMovingGradientProgressIndicator extends MovingGradientProgressIndi
     Duration? duration,
   }) : this.custom(
          key: key,
-         child: child,
+         child: CircularGradientChild(child: child),
          enabled: enabled,
          gradient: (animationValue) =>
              MovingGradientProgressIndicator.defaultGradient(BoxShape.circle, colors, animationValue),

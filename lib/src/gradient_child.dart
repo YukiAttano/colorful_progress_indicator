@@ -46,7 +46,10 @@ class CircularGradientChild extends StatelessWidget {
   Widget build(BuildContext context) {
     ProgressIndicatorThemeData indicatorTheme = ProgressIndicatorTheme.of(context);
 
-    return ConstrainedBox(constraints: indicatorTheme.constraints ?? circularDefaultConstraints, child: child);
+    return ConstrainedBox(
+      constraints: indicatorTheme.constraints ?? circularDefaultConstraints,
+      child: child,
+    );
   }
 }
 
@@ -64,7 +67,7 @@ class LinearGradientChild extends StatelessWidget {
     return ConstrainedBox(
       constraints: BoxConstraints(
         minWidth: double.infinity,
-        maxHeight: indicatorTheme.linearMinHeight ?? linearDefaultMinHeight,
+        minHeight: indicatorTheme.linearMinHeight ?? linearDefaultMinHeight,
       ),
       child: child,
     );

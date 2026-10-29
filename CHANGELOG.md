@@ -1,7 +1,12 @@
+## 0.2.2
+
+// * Added circular progress indicator for 'fixed' and 'moving' gradients
+* Fixed a function that was accidentally left in testing
+
 ## 0.2.1
 
 * Added circular progress indicator for 'fixed' and 'moving' gradients
-* Fixed a value that were left in testing
+* Fixed a value that was accidentally left in testing
 
 ## 0.2.0
 

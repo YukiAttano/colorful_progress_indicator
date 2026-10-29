@@ -19,7 +19,9 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
 
   final BoxShape shape;
 
-  final bool fixed;
+  final double? relativeLength;
+
+  final bool indeterminate;
 
   const FixedGradientProgressIndicator.custom({
     super.key,
@@ -30,12 +32,13 @@ class FixedGradientProgressIndicator extends GradientProgressIndicator {
     double? width,
     BorderRadius? borderRadius,
     BoxShape? shape,
-    bool? filled,
+    this.relativeLength,
+    bool? indeterminate,
     super.duration,
   }) : width = width ?? 1,
        borderRadius = borderRadius ?? BorderRadius.zero,
        shape = shape ?? BoxShape.rectangle,
-       fixed = progress != null;
+       indeterminate = indeterminate ?? progress == null;
 
   FixedGradientProgressIndicator({
     Key? key,
@@ -121,8 +124,8 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
         borderWidth: widget.width,
         borderRadius: widget.borderRadius,
         shape: widget.shape,
-        fixed: widget.fixed,
-        relativeLength: widget.fixed ? 1 : 0.5,
+        indeterminate: widget.indeterminate,
+        relativeLength: widget.relativeLength ?? (widget.indeterminate ? 0.5 : 1),
       );
     }
 

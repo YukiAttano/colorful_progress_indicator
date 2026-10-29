@@ -12,11 +12,11 @@ class FixedGradientProgressPainter extends CustomPainter {
   final BoxShape shape;
   final double progress;
 
-  /// The relative length of the border when [fixed] is false
+  /// The relative length of the border when [indeterminate] is true
   final double relativeLength;
 
-  /// If [fixed] is false, progress is indeterminate
-  final bool fixed;
+  /// If [indeterminate] is true, progress keeps repeating
+  final bool indeterminate;
 
   late void Function(Path path, Rect rect) _drawShape;
 
@@ -27,7 +27,7 @@ class FixedGradientProgressPainter extends CustomPainter {
     required this.shape,
     required this.progress,
     required this.relativeLength,
-    required this.fixed,
+    required this.indeterminate,
   }) : assert(relativeLength >= 0 && relativeLength <= 1, "relativeLength must be between 0 and 1") {
     switch (shape) {
       case BoxShape.rectangle:
@@ -40,6 +40,7 @@ class FixedGradientProgressPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (progress <= 0.0) return;
+    if (size == Size.zero) return;
 
     Rect rect = Offset.zero & size;
 
@@ -48,16 +49,16 @@ class FixedGradientProgressPainter extends CustomPainter {
     _drawShape(fullPath, rect);
 
     // compute path and only show half of it
-    PathMetric metric = fullPath.computeMetrics().first;
+    PathMetric? metric = fullPath.computeMetrics().first;
     double totalLength = metric.length;
     double windowLength = totalLength * relativeLength;
 
     double start = 0;
-    if (!fixed) {
-      // if 'fixed' is not set, the user progress bar is 'indefinite' and therefor never stops spinning.
+    if (indeterminate) {
+      // if 'indeterminate' is true, the progress bar never stops spinning.
       start = (progress * totalLength) % totalLength;
     } else {
-      // if 'fixed' is set, the user manually controls the progress and therefor should see a progress bar that has an end.
+      // if 'indeterminate' is false, the user manually controls the progress and therefor should see a progress bar that has an end.
       windowLength = totalLength * progress;
     }
 
@@ -101,7 +102,7 @@ class FixedGradientProgressPainter extends CustomPainter {
         old.gradient != gradient ||
         old.progress != progress ||
         old.relativeLength != relativeLength ||
-        old.fixed != fixed;
+        old.indeterminate != indeterminate;
   }
 }
 

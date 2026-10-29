@@ -45,10 +45,10 @@ class MovingGradientProgressPainter extends CustomPainter {
     RRect outerRRect = borderRadius.toRRect(rect);
 
     // alternative way to remove filled content, but doesn't match the correct border width
-     RRect innerRRect = outerRRect.deflate(borderWidth);
-     path
-       ..addRRect(innerRRect)
-       ..fillType = PathFillType.evenOdd;
+    // RRect innerRRect = outerRRect.deflate(borderWidth);
+    // path
+    //   ..addRRect(innerRRect)
+    //   ..fillType = PathFillType.evenOdd;
 
     path.addRRect(outerRRect);
   }
