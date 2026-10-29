@@ -3,5 +3,7 @@ export "src/color_list_tween.dart";
 export "src/consts.dart";
 export "src/gradient_indicator/v2/box/fixed_gradient_progress_indicator.dart";
 export "src/gradient_indicator/v2/box/moving_gradient_progress_indicator.dart";
+export "src/gradient_indicator/v2/circular/circular_fixed_gradient_progress_indicator.dart";
+export "src/gradient_indicator/v2/circular/circular_moving_gradient_progress_indicator.dart";
 export "src/gradient_transform/sliding_gradient_transform.dart";
 export "src/gradients.dart";

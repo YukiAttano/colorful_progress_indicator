@@ -122,7 +122,7 @@ class _FixedGradientProgressIndicatorState extends GradientProgressIndicatorStat
         borderRadius: widget.borderRadius,
         shape: widget.shape,
         fixed: widget.fixed,
-        relativeLength: 1, //widget.fixed ? 1 : 0.5,
+        relativeLength: widget.fixed ? 1 : 0.5,
       );
     }
 
