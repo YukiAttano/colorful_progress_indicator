@@ -1,5 +1,7 @@
 ## 0.2.0
 
+* Update ReadMe and link to example showcase
+
 ** BREAKING CHANGES**
 * Replaced all progress indicator with CustomPainter
 * Renamed all old progress indicator to `<OldName>V1` under the custom import `colorful_progress_spinner_v1.dart`

@@ -13,9 +13,10 @@ and the Flutter guide for
 
 Library to create colorful loading indicator
 
-The current state is under active development but is considered stable.
+The current state is under active development but considered stable.
+This ReadMe and all examples will be improved once V2 is done.
 
-I recommend to take a look at the [example project](https://colorful-loading-indicator.memeozer.com)
+I recommend to take a look at the [example project](https://colorful-progress-indicator.memeozer.com)
 
 ## Features
 
@@ -90,6 +91,3 @@ Example of V1 widgets
 My personal main goal was to recreate the Chroma spinner animation of [Razer](https://www.razer.com).
 
 While this package achieves this goal, it has no explicit RazerChromaIndicator widget kind of stuff.
-
-I had to rename the package to colorful_progress_spinner from colorful_progress_indicator because colorful_progress_indicator**s** is already picked,
-that's why the package name does not match any other naming.
