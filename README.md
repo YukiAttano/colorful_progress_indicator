@@ -28,12 +28,17 @@ V1 (0.1.1)
 
 V2 (current)
 - FixedGradientProgressIndicator (also as Circular)
-- MovingGradientProgressIndicator (also as Circular)
+- MovingGradientProgressIndicator (also as Circular and Linear)
 
 With package version 0.2.0, all progress indicator will gradually be based on CustomPainter instead 
 of relying on BoxDecorations.
 All old progress indicator are available under the new import `colorful_progress_spinner_v1.dart` 
 and are renamed to `<OldName>V1`.
+
+With 0.2.0:
+- the api surface has been reduced
+- visual artifacts has been removed (see live example above)
+- progress indicator no longer create a fake background, allowing for real transparency of the child 
 
 ## Getting started
 
@@ -79,12 +84,15 @@ MovingGradientProgressIndicator(
 );
 ```
 
-Example of V1 widgets
+See the live example at the [example project](https://colorful-progress-indicator.memeozer.com)
 
-![fixed_gradient_progress_indicator.gif](assets/fixed_gradient_progress_indicator.gif)
+Example of all`MovingGradientProgressIndicator`.
 
+![moving-progress-indicator.gif](assets/moving-progress-indicator.gif)
 
-![circular_moving_progress_indicator.gif](assets/circular_moving_progress_indicator.gif)
+Example of `CircularFixedGradientProgressIndicator`.
+
+![fixed-circular-progress-indicator.gif](assets/circular-fixed-progress-indicator.gif)
 
 ## Additional information
 

@@ -1,7 +1,9 @@
 ## 0.2.2
 
-// * Added circular progress indicator for 'fixed' and 'moving' gradients
+* Added circular progress indicator for 'fixed' and 'moving' gradients
+* Added linear progress indicator for 'moving' gradients
 * Fixed a function that was accidentally left in testing
+* Updated the example project and ReadMe
 
 ## 0.2.1
 
