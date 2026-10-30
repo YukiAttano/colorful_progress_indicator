@@ -1,12 +1,12 @@
 part of 'moving_gradient_progress_indicator_screen.dart';
 
-class _LinearIndicator extends StatelessWidget {
+class _LinearIndicatorV1 extends StatelessWidget {
   final List<Color> colors;
 
   final double? progress;
   final EdgeInsets? thickness;
 
-  const _LinearIndicator({super.key, required this.colors, this.progress, this.thickness});
+  const _LinearIndicatorV1({super.key, required this.colors, this.progress, this.thickness});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +18,10 @@ class _LinearIndicator extends StatelessWidget {
       borderRadius: radius,
       childBorderRadius: radius,
       colors: colors,
+      filled: true,
+      child: SizedBox(
+        height: thickness?.horizontal ?? 5,
+      ),
     );
   }
 }

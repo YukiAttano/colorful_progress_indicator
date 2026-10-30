@@ -1,14 +1,18 @@
 import 'package:colorful_progress_spinner/colorful_progress_spinner.dart';
 import 'package:colorful_progress_spinner/colorful_progress_spinner_v1.dart';
 import 'package:example/shared/widgets/screen.dart';
+import 'package:example/shared/widgets/title_text.dart';
 import 'package:example/shared/widgets/titled_slider.dart';
 import 'package:flutter/material.dart';
 
-part '_box_indicator.dart';
+part '_box_indicator_v1.dart';
+part '_box_indicator_v2.dart';
 
-part '_linear_indicator.dart';
+part '_linear_indicator_v1.dart';
+part '_linear_indicator_v2.dart';
 
-part '_circular_indicator.dart';
+part '_circular_indicator_v1.dart';
+part '_circular_indicator_v2.dart';
 
 class MovingGradientProgressIndicatorScreen extends StatefulWidget {
   const MovingGradientProgressIndicatorScreen({super.key});
@@ -21,9 +25,9 @@ class _MovingGradientProgressIndicatorScreenState extends State<MovingGradientPr
   double _thickness = 0.4;
 
   EdgeInsets get thickness => EdgeInsets.all(_thickness * 10);
+  double get width => _thickness * 20;
   double _progress = 0;
   bool _indefinite = true;
-
 
   final List<Color> _colors = [
     GradientColors.razerChroma.last,
@@ -45,25 +49,52 @@ class _MovingGradientProgressIndicatorScreenState extends State<MovingGradientPr
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _BoxIndicator(
+                    const TitleText(text: "V1",),
+                    const SizedBox(height: 20),
+                    _BoxIndicatorV1(
                       thickness: thickness,
                       progress: progress,
                       colors: _colors,
-
                     ),
                     const SizedBox(height: 20),
-                    _LinearIndicator(
+                    _LinearIndicatorV1(
                       thickness: thickness / 2,
                       progress: progress,
                       colors: _colors,
-
                     ),
                     const SizedBox(height: 20),
-                    _CircularIndicator(
+                    _CircularIndicatorV1(
                       thickness: thickness,
                       progress: progress,
                       colors: _colors,
-
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const TitleText(text: "V2",),
+                    const SizedBox(height: 20),
+                    _BoxIndicatorV2(
+                      width: width,
+                      progress: progress,
+                      colors: _colors,
+                    ),
+                    const SizedBox(height: 20),
+                    _LinearIndicatorV2(
+                      width: width,
+                      progress: progress,
+                      colors: _colors,
+                    ),
+                    const SizedBox(height: 20),
+                    _CircularIndicatorV2(
+                      width: width,
+                      progress: progress,
+                      colors: _colors,
                     ),
                   ],
                 ),
@@ -77,7 +108,6 @@ class _MovingGradientProgressIndicatorScreenState extends State<MovingGradientPr
                 onCheckedChanged: _onIndefiniteChanged,
                 thickness: _thickness,
                 onThicknessChanged: _onThicknessChanged,
-
               ),
             ),
           ],
@@ -97,8 +127,9 @@ class _MovingGradientProgressIndicatorScreenState extends State<MovingGradientPr
   void _onThicknessChanged(double value) {
     setState(() => _thickness = value);
   }
-
 }
+
+
 
 class _Controls extends StatelessWidget {
   final double progress;
@@ -109,7 +140,6 @@ class _Controls extends StatelessWidget {
   final double thickness;
   final void Function(double progress) onThicknessChanged;
 
-
   const _Controls({
     super.key,
     required this.progress,
@@ -118,7 +148,6 @@ class _Controls extends StatelessWidget {
     required this.onCheckedChanged,
     required this.thickness,
     required this.onThicknessChanged,
-
   });
 
   @override
@@ -138,7 +167,6 @@ class _Controls extends StatelessWidget {
           value: thickness,
           onValueChanged: onThicknessChanged,
         ),
-
       ],
     );
   }

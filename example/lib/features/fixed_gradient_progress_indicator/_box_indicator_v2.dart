@@ -1,26 +1,26 @@
-part of 'moving_gradient_progress_indicator_screen.dart';
+part of 'fixed_gradient_progress_indicator_screen.dart';
 
-class _BoxIndicator extends StatelessWidget {
+class _BoxIndicatorV2 extends StatelessWidget {
   final List<Color> colors;
-
   final double? progress;
-  final EdgeInsets? thickness;
+  final double? width;
+  final Color? bgColor;
 
-  const _BoxIndicator({super.key, required this.colors,  this.progress, this.thickness});
+  const _BoxIndicatorV2({super.key, required this.colors, this.progress, this.width, this.bgColor});
 
   @override
   Widget build(BuildContext context) {
     var radius = BorderRadius.circular(14);
 
-    return MovingGradientProgressIndicatorV1(
+    return FixedGradientProgressIndicator(
       progress: progress,
-      thickness: thickness,
+      width: width,
       borderRadius: radius,
-      childBorderRadius: radius,
       colors: colors,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: radius),
         margin: EdgeInsets.zero,
+        color: bgColor,
         child: Padding(
           padding: EdgeInsets.all(12),
           child: Column(
