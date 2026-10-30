@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "../../../../colorful_progress_spinner.dart";
 import "../../../gradient_child.dart";
 
+// TODO(Yuki): Implement
 class LinearFixedGradientProgressIndicator extends FixedGradientProgressIndicator {
   const LinearFixedGradientProgressIndicator.custom({
     super.key,
