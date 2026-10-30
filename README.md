@@ -37,7 +37,7 @@ and are renamed to `<OldName>V1`.
 
 With 0.2.0:
 - the api surface has been reduced
-- visual artifacts has been removed (see live example above)
+- visual artifacts have been removed (see live example above)
 - progress indicator no longer create a fake background, allowing for real transparency of the child 
 
 ## Getting started
@@ -98,4 +98,5 @@ Example of `CircularFixedGradientProgressIndicator`.
 
 My personal main goal was to recreate the Chroma spinner animation of [Razer](https://www.razer.com).
 
-While this package achieves this goal, it has no explicit RazerChromaIndicator widget kind of stuff.
+While this package achieves this goal, it is kept as a general purpose progress indicator package
+and does not come with an explicit RazerChromaIndicator widget kind of stuff.
