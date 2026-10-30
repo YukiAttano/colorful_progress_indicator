@@ -10,6 +10,7 @@ part '_box_indicator_v2.dart';
 part '_circular_indicator_v1.dart';
 part '_circular_indicator_v2.dart';
 part '_linear_indicator_v1.dart';
+part '_linear_indicator_v2.dart';
 
 class FixedGradientProgressIndicatorScreen extends StatefulWidget {
   const FixedGradientProgressIndicatorScreen({super.key});
